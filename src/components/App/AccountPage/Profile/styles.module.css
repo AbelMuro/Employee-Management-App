@@ -3,13 +3,55 @@
     justify-content: center;
     align-content: center;
     height: 1000px;
+    gap: 40px;
 }
 
 .basicInfo{
     background-color: white;
     border: 1px solid black;
     border-radius: 20px;
-    padding: 20px;
+    padding: 40px;
+    width: 400px;
+    height: 800px;
+}
+
+.coworkerContainer{
+    width: 150px;
+    margin: 20px 0px;
+}
+
+.title, .info, .manager, .coworkers, .name{
     font-family: 'Roboto';
 }
 
+.title, .info{
+    margin: 20px 0px;
+    display: inline-block;
+}
+
+.manager, .coworkers{
+    display: inline-block;
+    margin: 0px 20px;
+}
+
+.coworkersImage, .managersImage{
+    object-fit: contain;
+    width: 50px;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+
+
+.departmentInfo{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 40px;
+    width: 400px;
+    height: 600px;
+}
+
+
+.projects{
+    
+}

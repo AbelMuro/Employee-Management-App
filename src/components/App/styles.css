@@ -3,6 +3,11 @@
     src: url('./FontFiles/Roboto.ttf');
 }
 
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
 body{
     height: 100%;
     background-image: url('./images/purple\ waves.jpg');
