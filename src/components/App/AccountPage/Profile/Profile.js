@@ -63,6 +63,15 @@ function Profile(){
                     <p className={styles.info}> 3</p>
                 </div>
             </div>
+            <div className={styles.projects}>
+                <h1 className={styles.projectTitle}>
+                    Current Project:
+                </h1>
+                <p className={styles.projectDesc}>
+                    bla nlah nb lacoug enb f;uoijwe na
+                </p>
+            </div>
+
             <div className={styles.departmentInfo}> 
                     <h1 className={styles.title}>
                         Department:  
@@ -95,11 +104,6 @@ function Profile(){
                         <p className={styles.coworkers}>Jessica</p>
                     </div>    
                 </div>
-
-
-            <div className={styles.projects}>
-
-            </div>
         </section>
     )
 }

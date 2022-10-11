@@ -1,39 +1,50 @@
 .profile{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 480px);
     justify-content: center;
-    align-content: center;
     height: 1000px;
     gap: 40px;
 }
 
-.basicInfo{
+/* ----------------white containers---------------*/
+
+.basicInfo, .departmentInfo, .projects{
     background-color: white;
     border: 1px solid black;
     border-radius: 20px;
     padding: 40px;
-    width: 400px;
+    width: 400px;   
+}
+
+.basicInfo{
     height: 800px;
 }
 
-.coworkerContainer{
-    width: 150px;
-    margin: 20px 0px;
+.departmentInfo{
+    height: 600px;
 }
 
-.title, .info, .manager, .coworkers, .employeeName{
+.projects{
+    height: 800px;
+}
+
+
+
+/*-------------setting the font for all text in the document------------- */
+.title, .info, .manager, 
+.coworkers, .employeeName, 
+.projectTitle, .projectDesc{
     font-family: 'Roboto';
 }
 
+/* ----------all white containters will use these two classes--------------*/
 .title, .info{
     margin: 20px 0px;
     display: inline-block;
 }
 
-.manager, .coworkers{
-    display: inline-block;
-    margin: 0px 20px;
-}
 
+/*-----------------------profile section--------------*/
 .employeeName{
     font-weight: 600;
     font-size: 30px;
@@ -48,6 +59,25 @@
     vertical-align: middle;
 }
 
+
+
+
+
+
+/*------------department Info section------------------*/
+
+.coworkerContainer{
+    width: 150px;
+    margin: 20px 0px;
+}
+
+
+.manager, .coworkers{
+    display: inline-block;
+    margin: 0px 20px;
+}
+
+
 .coworkersImage, .managersImage{
     object-fit: contain;
     width: 50px;
@@ -55,15 +85,5 @@
     vertical-align: middle;
 }
 
-
-
-.departmentInfo{
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 40px;
-    width: 400px;
-    height: 600px;
-}
 
 
