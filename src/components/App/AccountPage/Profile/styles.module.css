@@ -39,6 +39,7 @@
 
 /* ----------all white containters will use these two classes--------------*/
 .title, .info{
+    font-size: 17px;
     margin: 20px 0px;
     display: inline-block;
 }
@@ -87,3 +88,12 @@
 
 
 
+/*------ project section------ */
+
+.progressTitle{
+    font-family: 'Roboto';
+    color: grey;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 10px;
+}

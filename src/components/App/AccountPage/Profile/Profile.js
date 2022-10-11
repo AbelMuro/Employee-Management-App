@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 import coworkersImage from './images/coworkersImage.jpeg';
+import ProgressBar from './ProgressBar';
 
 function Profile(){
     return(
@@ -13,52 +14,52 @@ function Profile(){
                     </p>
                     <br/>
                     <h3 className={styles.title}>
-                        Job Title:
+                        Job Title:&nbsp;
                     </h3>
                     <p className={styles.info}>Accountant</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Employee ID:
+                        Employee ID:&nbsp;
                     </h3>                  
                     <p className={styles.info}>12345</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Email:
+                        Email:&nbsp;
                     </h3>
                     <p className={styles.info}>lala@gmail.com</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Gender:
+                        Gender:&nbsp;
                     </h3>
                     <p className={styles.info}>binary</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Race:
+                        Race:&nbsp;
                     </h3>
                     <p className={styles.info}>martian</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Age:
+                        Age:&nbsp;
                     </h3>
                     <p className={styles.info}> 34</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Address:
+                        Address:&nbsp;
                     </h3>
                     <p className={styles.info}> thunderville 9854, jackson</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Salary:
+                        Salary:&nbsp;
                     </h3>
                     <p className={styles.info}> $56,098</p> 
                     <br/>  
                     <h3 className={styles.title}>
-                        Birthday:
+                        Birthday:&nbsp;
                     </h3>                   
                     <p className={styles.info}> 11/23/91</p>
                     <br/>  
                     <h3 className={styles.title}>
-                        Years Employed:
+                        Years Employed:&nbsp;
                     </h3>
                     <p className={styles.info}> 3</p>
                 </div>
@@ -68,8 +69,48 @@ function Profile(){
                     Current Project:
                 </h1>
                 <p className={styles.projectDesc}>
-                    bla nlah nb lacoug enb f;uoijwe na
+                    bla nlah nb lacoug enb f;uoi jwe na
                 </p>
+                <h3 className={styles.title}>
+                    Task One:&nbsp;
+                </h3>
+                <p className={styles.info}>
+                    lorem ipsum hadre hubmi loreimini
+                </p>
+                <p className={styles.progressTitle}>
+                    Task Progress:&nbsp;
+                </p>
+                <ProgressBar value={10}/>
+                <h3 className={styles.title}>
+                    Task Two:&nbsp;
+                </h3>
+                <p className={styles.info}>
+                    lorem ipsum hadre hubmi loreimini
+                </p>
+                <p className={styles.progressTitle}>
+                    Task Progress:&nbsp;
+                </p>
+                <ProgressBar value={20}/>
+                <h3 className={styles.title}>
+                    Task Three:&nbsp;
+                </h3>
+                <p className={styles.info}>
+                    lorem ipsum hadre hubmi loreimini
+                </p>
+                <p className={styles.progressTitle}>
+                    Task Progress:&nbsp;
+                </p>
+                <ProgressBar value={60}/>
+                <h3 className={styles.title}>
+                    Task Four:&nbsp;
+                </h3>
+                <p className={styles.info}>
+                    lorem ipsum hadre hubmi loreimini
+                </p>
+                <p className={styles.progressTitle}>
+                    Task Progress:&nbsp;
+                </p>
+                <ProgressBar value={70}/>
             </div>
 
             <div className={styles.departmentInfo}> 
