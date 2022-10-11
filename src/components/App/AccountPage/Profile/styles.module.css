@@ -20,7 +20,7 @@
     margin: 20px 0px;
 }
 
-.title, .info, .manager, .coworkers, .name{
+.title, .info, .manager, .coworkers, .employeeName{
     font-family: 'Roboto';
 }
 
@@ -34,12 +34,27 @@
     margin: 0px 20px;
 }
 
+.employeeName{
+    font-weight: 600;
+    font-size: 30px;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+}
+
+.employeeImage{
+    object-fit: contain;
+    width: 100px;
+    vertical-align: middle;
+}
+
 .coworkersImage, .managersImage{
     object-fit: contain;
     width: 50px;
     border-radius: 100%;
     vertical-align: middle;
 }
+
 
 
 .departmentInfo{
@@ -52,6 +67,3 @@
 }
 
 
-.projects{
-    
-}

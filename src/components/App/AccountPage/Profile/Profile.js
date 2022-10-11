@@ -7,10 +7,8 @@ function Profile(){
         <section className={styles.profile}>
             <div className={styles.basicInfo}>
                 <div className={styles.otherInfo}>
-                    <h3 className={styles.title}>
-                        Employee Name:
-                    </h3>
-                    <p className={styles.info}>
+                    <img className={styles.employeeImage} src={coworkersImage}/>
+                    <p className={styles.employeeName}>
                         Jackie Wells
                     </p>
                     <br/>
