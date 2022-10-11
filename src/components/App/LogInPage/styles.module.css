@@ -1,0 +1,26 @@
+.loginContainer{
+    background-color: white;
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: block;
+    width: 400px;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.logo{
+    font-family: 'Roboto';
+    color: grey;
+}
+
+.title{
+    font-family: 'Roboto';
+    font-size: 40px;
+    font-weight: 900;
+    margin: 20px 0px;
+}
+
+.desc{
+    font-family: 'Roboto';
+}

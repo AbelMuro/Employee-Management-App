@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('./FontFiles/Roboto.ttf');
+}
+
+body{
+    height: 100%;
+    background-image: url('./images/purple\ waves.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0px;
+}
+
+html{
+    height: 100%;
+}
