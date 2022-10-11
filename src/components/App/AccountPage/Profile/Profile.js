@@ -7,16 +7,46 @@ function Profile(){
             <div className={styles.basicInfo}>
                 <h1 className={styles.name}>Jackie wells</h1>
                 <div className={styles.otherInfo}>
-                    <p className={styles.jobTitle}>Accountant</p>                    
-                    <p className={styles.employeeID}>12345</p>
-                    <p className={styles.email}>lala@gmail.com</p>
-                    <p className={styles.gender}>binary</p>
-                    <p className={styles.race}>martian</p>
-                    <p className={styles.age}> 34</p>
-                    <p className={styles.address}> thunderville 9854, jackson</p>
-                    <p className={styles.salary}> $56,098</p>                    
-                    <p className={styles.birthday}> 11/23/91</p>
-                    <p className={styles.yearsEmployed}> 3</p>
+                    <h3 className={styles.title}>
+                        Job Title:
+                    </h3>
+                    <p className={styles.info}>Accountant</p>  
+                    <h3 className={styles.title}>
+                        Employee ID:
+                    </h3>                  
+                    <p className={styles.info}>12345</p>
+                    <h3 className={styles.title}>
+                        Email:
+                    </h3>
+                    <p className={styles.info}>lala@gmail.com</p>
+                    <h3 className={styles.title}>
+                        Gender:
+                    </h3>
+                    <p className={styles.info}>binary</p>
+                    <h3 className={styles.title}>
+                        Race:
+                    </h3>
+                    <p className={styles.info}>martian</p>
+                    <h3 className={styles.title}>
+                        Age:
+                    </h3>
+                    <p className={styles.info}> 34</p>
+                    <h3 className={styles.title}>
+                        Address:
+                    </h3>
+                    <p className={styles.info}> thunderville 9854, jackson</p>
+                    <h3 className={styles.title}>
+                        Salary:
+                    </h3>
+                    <p className={styles.info}> $56,098</p> 
+                    <h3 className={styles.title}>
+                        Birthday:
+                    </h3>                   
+                    <p className={styles.info}> 11/23/91</p>
+                    <h3 className={styles.title}>
+                        Years Employed:
+                    </h3>
+                    <p className={styles.info}> 3</p>
                 </div>
                 <div className={styles.departmentInfo}>                    
                     <p className={styles.departmentName}>Accounting</p>
