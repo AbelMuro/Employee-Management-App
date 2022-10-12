@@ -14,14 +14,6 @@ function Profile(props){
 
 
     useEffect(() => {
-
-        fetch("https://api.mockaroo.com/api/2ba1d7b0?count=100&key=2253caa0")
-        .then((response) => {
-             response.json()
-        })
-        .then((data) => {
-
-        })
         setTaskOneProgress(20);
         setTaskTwoProgress(5);
         setTaskThreeProgress(54);
