@@ -1,11 +1,36 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './styles.module.css';
 import coworkersImage from './images/coworkersImage.jpeg';
 import ProgressBar from './ProgressBar';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
-function Profile(){
+function Profile(props){
+    const [taskOneProgress, setTaskOneProgress] = useState();
+    const [taskTwoProgress, setTaskTwoProgress] = useState();
+    const [taskThreeProgress, setTaskThreeProgress] = useState();
+    const [taskFourProgress, setTaskFourProgress] = useState();
+
+
+    useEffect(() => {
+
+        fetch("https://api.mockaroo.com/api/2ba1d7b0?count=100&key=2253caa0")
+        .then((response) => {
+             response.json()
+        })
+        .then((data) => {
+
+        })
+        setTaskOneProgress(20);
+        setTaskTwoProgress(5);
+        setTaskThreeProgress(54);
+        setTaskFourProgress(91)
+    }, [])
+
     return(
         <section className={styles.profile}>
+
             <div className={styles.basicInfo}>
                 <div className={styles.otherInfo}>
                     <img className={styles.employeeImage} src={coworkersImage}/>
@@ -62,8 +87,12 @@ function Profile(){
                         Years Employed:&nbsp;
                     </h3>
                     <p className={styles.info}> 3</p>
+                    <Box className={styles.button}>
+                        <Button variant="contained">Update Info</Button>                          
+                    </Box>
                 </div>
             </div>
+
             <div className={styles.projects}>
                 <h1 className={styles.projectTitle}>
                     Current Project:
@@ -71,59 +100,122 @@ function Profile(){
                 <p className={styles.projectDesc}>
                     bla nlah nb lacoug enb f;uoi jwe na
                 </p>
-                <h3 className={styles.title}>
-                    Task One:&nbsp;
-                </h3>
-                <p className={styles.info}>
-                    lorem ipsum hadre hubmi loreimini
-                </p>
-                <p className={styles.progressTitle}>
-                    Task Progress:&nbsp;
-                </p>
-                <ProgressBar value={10}/>
-                <h3 className={styles.title}>
-                    Task Two:&nbsp;
-                </h3>
-                <p className={styles.info}>
-                    lorem ipsum hadre hubmi loreimini
-                </p>
-                <p className={styles.progressTitle}>
-                    Task Progress:&nbsp;
-                </p>
-                <ProgressBar value={20}/>
-                <h3 className={styles.title}>
-                    Task Three:&nbsp;
-                </h3>
-                <p className={styles.info}>
-                    lorem ipsum hadre hubmi loreimini
-                </p>
-                <p className={styles.progressTitle}>
-                    Task Progress:&nbsp;
-                </p>
-                <ProgressBar value={60}/>
-                <h3 className={styles.title}>
-                    Task Four:&nbsp;
-                </h3>
-                <p className={styles.info}>
-                    lorem ipsum hadre hubmi loreimini
-                </p>
-                <p className={styles.progressTitle}>
-                    Task Progress:&nbsp;
-                </p>
-                <ProgressBar value={70}/>
+                <div className={styles.taskContainer}>
+                    <h3 className={styles.taskTitle}>
+                        Task One:&nbsp;
+                    </h3>
+                    <p className={styles.taskInfo}>
+                        lorem ipsum hadre hubmi loreimini
+                    </p>
+                    <br/>   
+                    <h3 className={styles.workingHoursTitle}>
+                        Working Hours:&nbsp; 
+                    </h3> 
+                    <p className={styles.workingHoursInfo}>
+                        23
+                    </p>
+                    <br/> 
+                    <p className={styles.progressTitle}>
+                        Task Progress:&nbsp;
+                    </p>
+                    <ProgressBar value={taskOneProgress}/>  
+                    <Stack spacing={2} direction="row" className={styles.buttons}>
+                        <Button variant="contained">Update Progress</Button> 
+                        <Button variant="contained">Complete</Button>                         
+                    </Stack> 
+                </div>
+                <div className={styles.taskContainer}>
+                    <h3 className={styles.taskTitle}>
+                        Task Two:&nbsp;
+                    </h3>
+                    <p className={styles.taskInfo}>
+                        lorem ipsum hadre hubmi loreimini
+                    </p>      
+                    <br/>   
+                    <h3 className={styles.workingHoursTitle}>
+                        Working Hours:&nbsp; 
+                    </h3> 
+                    <p className={styles.workingHoursInfo}>
+                        23
+                    </p>
+                    <br/>
+                    <p className={styles.progressTitle}>
+                        Task Progress:&nbsp;
+                    </p>
+                    <ProgressBar value={taskTwoProgress}/>
+                    <Stack spacing={2} direction="row" className={styles.buttons}>
+                        <Button variant="contained">Update Progress</Button> 
+                        <Button variant="contained">Complete</Button>                         
+                    </Stack>                    
+                </div>
+                <div className={styles.taskContainer}>
+                    <h3 className={styles.taskTitle}>
+                        Task Three:&nbsp;
+                    </h3>
+                    <p className={styles.taskInfo}>
+                        lorem ipsum hadre hubmi loreimini
+                    </p>
+                    <br/>  
+                    <h3 className={styles.workingHoursTitle}>
+                        Working Hours:&nbsp; 
+                    </h3> 
+                    <p className={styles.workingHoursInfo}>
+                        23
+                    </p>
+                    <br/>
+                    <p className={styles.progressTitle}>
+                        Task Progress:&nbsp;
+                    </p>
+                    <ProgressBar value={taskThreeProgress}/>   
+                    <Stack spacing={2} direction="row" className={styles.buttons}>
+                        <Button variant="contained">Update Progress</Button> 
+                        <Button variant="contained">Complete</Button>                         
+                    </Stack>              
+                </div>
+                <div className={styles.taskContainer}>
+                    <h3 className={styles.taskTitle}>
+                        Task Four:&nbsp;
+                    </h3>
+                    <p className={styles.taskInfo}>
+                        lorem ipsum hadre hubmi loreimini
+                    </p>
+                    <br/>  
+                    <h3 className={styles.workingHoursTitle}>
+                        Working Hours:&nbsp; 
+                    </h3> 
+                    <p className={styles.workingHoursInfo}>
+                        23
+                    </p>
+                    <br/> 
+                    <p className={styles.progressTitle}>
+                        Task Progress:&nbsp;
+                    </p>
+                    <ProgressBar value={taskFourProgress}/>    
+                    <Stack spacing={2} direction="row" className={styles.buttons}>
+                        <Button variant="contained">Update Progress</Button> 
+                        <Button variant="contained">Complete</Button>                         
+                    </Stack>            
+                </div>
             </div>
 
-            <div className={styles.departmentInfo}> 
-                    <h1 className={styles.title}>
-                        Department:  
+            <div className={styles.department}> 
+                    <h1 className={styles.departmentTitle}>
+                        Department: &nbsp;
                     </h1>
-                    <p className={styles.info}>
+                    <p className={styles.departmentInfo}>
                         Accounting
                     </p>
+                    <br/>
+                    <h3 className={styles.title}>
+                        Manager:&nbsp;
+                    </h3>
                     <div className={styles.coworkerContainer}>
                         <img className={styles.managersImage} src={coworkersImage}/>
                         <p className={styles.manager}>Jorge</p>                         
-                    </div>           
+                    </div> 
+                    <h3 className={styles.title}>
+                            Coworkers:&nbsp;
+                    </h3>          
                     <div className={styles.coworkerContainer}>
                         <img className={styles.coworkersImage} src={coworkersImage}/>
                         <p className={styles.coworkers}>jason</p>
@@ -143,8 +235,12 @@ function Profile(){
                     <div className={styles.coworkerContainer}>
                         <img className={styles.coworkersImage} src={coworkersImage}/>
                         <p className={styles.coworkers}>Jessica</p>
-                    </div>    
+                    </div>  
+                    <Box className={styles.button}>
+                        <Button variant="contained">Update team</Button>                          
+                    </Box>  
                 </div>
+
         </section>
     )
 }

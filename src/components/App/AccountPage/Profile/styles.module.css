@@ -8,7 +8,7 @@
 
 /* ----------------white containers---------------*/
 
-.basicInfo, .departmentInfo, .projects{
+.basicInfo, .department, .projects{
     background-color: white;
     border: 1px solid black;
     border-radius: 20px;
@@ -18,14 +18,17 @@
 
 .basicInfo{
     height: 800px;
+    grid-row: 1/2;
 }
 
-.departmentInfo{
-    height: 600px;
+.department{
+    height: 700px;
+    grid-row: 2/4;
 }
 
 .projects{
-    height: 800px;
+    height: 1200px;
+    grid-row: 1/3;
 }
 
 
@@ -33,12 +36,15 @@
 /*-------------setting the font for all text in the document------------- */
 .title, .info, .manager, 
 .coworkers, .employeeName, 
-.projectTitle, .projectDesc{
+.projectTitle, .projectDesc,
+.taskTitle, .workingHoursTitle,
+.workingHoursInfo, .departmentTitle,
+.departmentInfo, .taskInfo{
     font-family: 'Roboto';
 }
 
 /* ----------all white containters will use these two classes--------------*/
-.title, .info{
+.title, .info, .taskInfo{
     font-size: 17px;
     margin: 20px 0px;
     display: inline-block;
@@ -66,6 +72,11 @@
 
 
 /*------------department Info section------------------*/
+
+.departmentTitle, .departmentInfo{
+    font-size: 30px;
+    display: inline-block;
+}
 
 .coworkerContainer{
     width: 150px;
@@ -96,4 +107,26 @@
     font-size: 15px;
     display: inline-block;
     margin-bottom: 10px;
+}
+
+.taskContainer{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: block;
+    width: 95%;
+    margin: 30px auto;
+}
+
+.workingHoursTitle, .workingHoursInfo{
+    display: inline-block;
+    font-size: 15px;
+}
+
+.workingHoursTitle{
+    margin-bottom: 20px
+}
+
+.buttons{
+    margin-top: 30px;
 }
