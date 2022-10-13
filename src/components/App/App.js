@@ -7,7 +7,7 @@ function App(){
     return(
         <> 
             <LogInPage/>
-            <AccountPage/>
+            <AccountPage />
         </>)
 
 }

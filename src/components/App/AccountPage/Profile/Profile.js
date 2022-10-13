@@ -1,84 +1,91 @@
 import React, {useState, useEffect} from 'react';
 import styles from './styles.module.css';
-import coworkersImage from './images/coworkersImage.jpeg';
 import ProgressBar from './ProgressBar';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import db from './Firebase';
+import { ref, set, onValue, push} from 'firebase/database';
 
 function Profile(props){
-    const [taskOneProgress, setTaskOneProgress] = useState();
-    const [taskTwoProgress, setTaskTwoProgress] = useState();
-    const [taskThreeProgress, setTaskThreeProgress] = useState();
-    const [taskFourProgress, setTaskFourProgress] = useState();
-
+    const [employeeData, setEmployeeData] = useState(null);
+    const reference = ref(db);
 
     useEffect(() => {
-        setTaskOneProgress(20);
-        setTaskTwoProgress(5);
-        setTaskThreeProgress(54);
-        setTaskFourProgress(91)
+        const name = 'Madelon Gotliffe';
+
+        onValue(reference, (snapshot) => {
+            const data = snapshot.val();
+
+            for(let node in data){
+                if(data[node].name == name){
+                    setEmployeeData(data[node])
+                    console.log("found employee");
+                }
+            }
+        })
     }, [])
 
-    return(
+    return !employeeData ? (<div> loading</div>) :
+    (
         <section className={styles.profile}>
 
             <div className={styles.basicInfo}>
                 <div className={styles.otherInfo}>
-                    <img className={styles.employeeImage} src={coworkersImage}/>
+                    <img className={styles.employeeImage} src={employeeData['self image']}/>
                     <p className={styles.employeeName}>
-                        Jackie Wells
+                        {employeeData['name']}
                     </p>
                     <br/>
                     <h3 className={styles.title}>
                         Job Title:&nbsp;
                     </h3>
-                    <p className={styles.info}>Accountant</p>
+                    <p className={styles.info}>{employeeData['job title']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Employee ID:&nbsp;
                     </h3>                  
-                    <p className={styles.info}>12345</p>
+                    <p className={styles.info}>{employeeData['employee id']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Email:&nbsp;
                     </h3>
-                    <p className={styles.info}>lala@gmail.com</p>
+                    <p className={styles.info}>{employeeData['email']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Gender:&nbsp;
                     </h3>
-                    <p className={styles.info}>binary</p>
+                    <p className={styles.info}>{employeeData['gender']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Race:&nbsp;
                     </h3>
-                    <p className={styles.info}>martian</p>
+                    <p className={styles.info}>{employeeData['race']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Age:&nbsp;
                     </h3>
-                    <p className={styles.info}> 34</p>
+                    <p className={styles.info}> {employeeData['age']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Address:&nbsp;
                     </h3>
-                    <p className={styles.info}> thunderville 9854, jackson</p>
+                    <p className={styles.info}> {employeeData['address']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Salary:&nbsp;
                     </h3>
-                    <p className={styles.info}> $56,098</p> 
+                    <p className={styles.info}>{'$' + employeeData['salary']}</p> 
                     <br/>  
                     <h3 className={styles.title}>
                         Birthday:&nbsp;
                     </h3>                   
-                    <p className={styles.info}> 11/23/91</p>
+                    <p className={styles.info}> {employeeData['birthday']}</p>
                     <br/>  
                     <h3 className={styles.title}>
                         Years Employed:&nbsp;
                     </h3>
-                    <p className={styles.info}> 3</p>
+                    <p className={styles.info}> {employeeData['years employed']}</p>
                     <Box className={styles.button}>
                         <Button variant="contained">Update Info</Button>                          
                     </Box>
@@ -90,27 +97,27 @@ function Profile(props){
                     Current Project:
                 </h1>
                 <p className={styles.projectDesc}>
-                    bla nlah nb lacoug enb f;uoi jwe na
+                    {employeeData['current project']}
                 </p>
                 <div className={styles.taskContainer}>
                     <h3 className={styles.taskTitle}>
                         Task One:&nbsp;
                     </h3>
                     <p className={styles.taskInfo}>
-                        lorem ipsum hadre hubmi loreimini
+                        {employeeData['task one']}
                     </p>
                     <br/>   
                     <h3 className={styles.workingHoursTitle}>
                         Working Hours:&nbsp; 
                     </h3> 
                     <p className={styles.workingHoursInfo}>
-                        23
+                        {employeeData['working hours task one']}
                     </p>
                     <br/> 
                     <p className={styles.progressTitle}>
                         Task Progress:&nbsp;
                     </p>
-                    <ProgressBar value={taskOneProgress}/>  
+                    <ProgressBar value={employeeData['task one progress']}/>  
                     <Stack spacing={2} direction="row" className={styles.buttons}>
                         <Button variant="contained">Update Progress</Button> 
                         <Button variant="contained">Complete</Button>                         
@@ -121,20 +128,20 @@ function Profile(props){
                         Task Two:&nbsp;
                     </h3>
                     <p className={styles.taskInfo}>
-                        lorem ipsum hadre hubmi loreimini
+                        {employeeData['task two']}
                     </p>      
                     <br/>   
                     <h3 className={styles.workingHoursTitle}>
                         Working Hours:&nbsp; 
                     </h3> 
                     <p className={styles.workingHoursInfo}>
-                        23
+                        {employeeData['working hours task two']}
                     </p>
                     <br/>
                     <p className={styles.progressTitle}>
                         Task Progress:&nbsp;
                     </p>
-                    <ProgressBar value={taskTwoProgress}/>
+                    <ProgressBar value={employeeData['task two progress']}/>
                     <Stack spacing={2} direction="row" className={styles.buttons}>
                         <Button variant="contained">Update Progress</Button> 
                         <Button variant="contained">Complete</Button>                         
@@ -145,20 +152,20 @@ function Profile(props){
                         Task Three:&nbsp;
                     </h3>
                     <p className={styles.taskInfo}>
-                        lorem ipsum hadre hubmi loreimini
+                        {employeeData['task three']}
                     </p>
                     <br/>  
                     <h3 className={styles.workingHoursTitle}>
                         Working Hours:&nbsp; 
                     </h3> 
                     <p className={styles.workingHoursInfo}>
-                        23
+                        {employeeData['working hours task three']}
                     </p>
                     <br/>
                     <p className={styles.progressTitle}>
                         Task Progress:&nbsp;
                     </p>
-                    <ProgressBar value={taskThreeProgress}/>   
+                    <ProgressBar value={employeeData['task three progress']}/>   
                     <Stack spacing={2} direction="row" className={styles.buttons}>
                         <Button variant="contained">Update Progress</Button> 
                         <Button variant="contained">Complete</Button>                         
@@ -169,20 +176,20 @@ function Profile(props){
                         Task Four:&nbsp;
                     </h3>
                     <p className={styles.taskInfo}>
-                        lorem ipsum hadre hubmi loreimini
+                        {employeeData['task four']}
                     </p>
                     <br/>  
                     <h3 className={styles.workingHoursTitle}>
                         Working Hours:&nbsp; 
                     </h3> 
                     <p className={styles.workingHoursInfo}>
-                        23
+                        {employeeData['working hours task four']}
                     </p>
                     <br/> 
                     <p className={styles.progressTitle}>
                         Task Progress:&nbsp;
                     </p>
-                    <ProgressBar value={taskFourProgress}/>    
+                    <ProgressBar value={employeeData['task four progress']}/>    
                     <Stack spacing={2} direction="row" className={styles.buttons}>
                         <Button variant="contained">Update Progress</Button> 
                         <Button variant="contained">Complete</Button>                         
@@ -195,38 +202,38 @@ function Profile(props){
                         Department: &nbsp;
                     </h1>
                     <p className={styles.departmentInfo}>
-                        Accounting
+                        {employeeData['department']}
                     </p>
                     <br/>
                     <h3 className={styles.title}>
                         Manager:&nbsp;
                     </h3>
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.managersImage} src={coworkersImage}/>
-                        <p className={styles.manager}>Jorge</p>                         
+                        <img className={styles.managersImage} src={employeeData['manager image']}/>
+                        <p className={styles.manager}>{employeeData['manager']}</p>                         
                     </div> 
                     <h3 className={styles.title}>
                             Coworkers:&nbsp;
                     </h3>          
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.coworkersImage} src={coworkersImage}/>
-                        <p className={styles.coworkers}>jason</p>
+                        <img className={styles.coworkersImage} src={employeeData['coworker one image']}/>
+                        <p className={styles.coworkers}>{employeeData['coworker one']}</p>
                     </div>
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.coworkersImage} src={coworkersImage}/>
-                        <p className={styles.coworkers}>jack</p>
+                        <img className={styles.coworkersImage} src={employeeData['coworker two image']}/>
+                        <p className={styles.coworkers}>{employeeData['coworker two']}</p>
                     </div>
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.coworkersImage} src={coworkersImage}/>
-                        <p className={styles.coworkers}>Sussy</p>
+                        <img className={styles.coworkersImage} src={employeeData['coworker three image']}/>
+                        <p className={styles.coworkers}>{employeeData['coworker three']}</p>
                     </div>
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.coworkersImage} src={coworkersImage}/>
-                        <p className={styles.coworkers}>David</p>
+                        <img className={styles.coworkersImage} src={employeeData['coworker four image']}/>
+                        <p className={styles.coworkers}>{employeeData['coworker four']}</p>
                     </div>
                     <div className={styles.coworkerContainer}>
-                        <img className={styles.coworkersImage} src={coworkersImage}/>
-                        <p className={styles.coworkers}>Jessica</p>
+                        <img className={styles.coworkersImage} src={employeeData['coworker five image']}/>
+                        <p className={styles.coworkers}>{employeeData['coworker five']}</p>
                     </div>  
                     <Box className={styles.button}>
                         <Button variant="contained">Update team</Button>                          
