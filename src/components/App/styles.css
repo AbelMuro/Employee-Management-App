@@ -10,7 +10,8 @@
 
 body{
     height: 100%;
-    background-image: url('./images/purple\ waves.jpg');
+    border: 1px solid transparent;                                  /* for margin collapse*/
+    background-image: url('./images/purple waves.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -18,5 +19,5 @@ body{
 }
 
 html{
-    height: 100%;
+    min-height: 100vh;
 }

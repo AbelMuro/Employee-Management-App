@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,7 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 function LogInPage(){
-//TODO: make this component into a controlled component
+    const [employeeName, setEmployeeName] = useState('');
+    const navigate = useNavigate();
+    const disable = employeeName.match(/\d/g) != null || employeeName == '';
+
+    const handleChange = (e) => {
+        setEmployeeName(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        navigate("/profile/" + employeeName);
+    }
 
     return(
         <section>
@@ -19,18 +29,13 @@ function LogInPage(){
                     This App will search through a database of employees of
                     some random company and will then display info about the employee
                 </p>
-                <form>
-                    <TextField id="outlined-basic" label="Enter Name" variant="outlined"/>
-                    <br/>
-                    <br/>
-                    <Button variant="contained" className={styles.button}>Search</Button>              
-                </form>
-
+                <TextField id="outlined-basic" label="Enter Name" variant="outlined" value={employeeName} onChange={handleChange}/>
+                <br/>
+                <br/>
+                <Button disabled={disable} variant="contained" className={styles.button} onClick={handleSubmit}>Search</Button>              
             </div>
-
-
         </section>
-        )
+    )
 }
 
 export default LogInPage;

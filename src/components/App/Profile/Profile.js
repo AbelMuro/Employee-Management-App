@@ -8,18 +8,17 @@ import db from './Firebase';
 import { ref, set, onValue, push} from 'firebase/database';
 import { useParams } from 'react-router-dom';
 
-function Profile(props){
+function Profile(){
+    const {employeeName} = useParams();
     const [employeeData, setEmployeeData] = useState(null);
     const reference = ref(db);
 
     useEffect(() => {
-        const name = 'Madelon Gotliffe';
-
         onValue(reference, (snapshot) => {
             const data = snapshot.val();
 
             for(let node in data){
-                if(data[node].name == name){
+                if(data[node].name == employeeName){
                     setEmployeeData(data[node])
                     console.log("found employee");
                 }

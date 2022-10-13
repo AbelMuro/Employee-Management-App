@@ -7,10 +7,12 @@ import './styles.css'
 function App(){
     return(
         <BrowserRouter> 
-            <LogInPage/>
-            <Routes>
-                <Route path='/profile/:employee' element={<Profile />}/>
+
+            <Routes>          
+                <Route path="/" element={<LogInPage/>}/>
+                <Route path='/profile/:employeeName' element={<Profile/>}/>
             </Routes>
+
         </BrowserRouter>
     )
 
