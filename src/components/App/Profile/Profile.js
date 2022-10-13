@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import db from './Firebase';
 import { ref, set, onValue, push} from 'firebase/database';
+import { useParams } from 'react-router-dom';
 
 function Profile(props){
     const [employeeData, setEmployeeData] = useState(null);
