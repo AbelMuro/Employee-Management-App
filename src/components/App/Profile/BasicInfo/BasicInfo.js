@@ -3,6 +3,8 @@ import styles from './styles.module.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
+
+//TODO: need to make white container with inputs that will be used to update node on database
 function BasicInfo(props){
     const employeeData = props.state; 
 
