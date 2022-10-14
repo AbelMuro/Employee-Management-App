@@ -14,7 +14,7 @@ function LogInPage(){
         setEmployeeName(e.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleClick = () => {
         navigate("/profile/" + employeeName);
     }
 
@@ -32,7 +32,7 @@ function LogInPage(){
                 <TextField id="outlined-basic" label="Enter Name" variant="outlined" value={employeeName} onChange={handleChange}/>
                 <br/>
                 <br/>
-                <Button disabled={disable} variant="contained" className={styles.button} onClick={handleSubmit}>Search</Button>              
+                <Button disabled={disable} variant="contained" className={styles.button} onClick={handleClick}>Search</Button>              
             </div>
         </section>
     )
