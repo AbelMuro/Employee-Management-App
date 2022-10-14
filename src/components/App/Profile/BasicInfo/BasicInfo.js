@@ -119,12 +119,8 @@ function BasicInfo(props){
                                 <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
                             </Box>                            
                         </div>
-
                     </div>                      
-
                 )}
-
-  
             </Popup>
         </>
 
