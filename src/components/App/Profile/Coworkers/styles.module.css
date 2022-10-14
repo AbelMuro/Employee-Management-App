@@ -1,0 +1,44 @@
+
+.department{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 40px;
+    width: 400px;   
+}
+
+.department{
+    height: 700px;
+    grid-row: 2/4;
+}
+
+.title, .manager, .coworkers, 
+.departmentTitle, .departmentInfo {
+    font-family: 'Roboto';
+}
+
+
+.departmentTitle, .departmentInfo{
+    font-size: 30px;
+    display: inline-block;
+}
+
+.coworkerContainer{
+    width: 200px;
+    margin: 20px 0px;
+}
+
+
+.manager, .coworkers{
+    display: inline-block;
+    margin: 0px 20px;
+}
+
+
+.coworkersImage, .managersImage{
+    object-fit: contain;
+    width: 50px;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+

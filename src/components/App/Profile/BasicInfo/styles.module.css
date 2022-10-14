@@ -1,0 +1,39 @@
+.basicInfo{
+    height: 800px;
+    grid-row: 1/2;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 40px;
+    width: 400px; 
+}
+
+.title, .info, .manager, .employeeName {
+    font-family: 'Roboto';
+}
+
+.title, .info{
+    font-size: 17px;
+    margin: 20px 0px;
+    display: inline-block;
+}
+
+.employeeName{
+    font-weight: 600;
+    font-size: 30px;
+    display: inline-block;
+    width: 300px;
+    text-align: center;
+}
+
+.employeeImage{
+    object-fit: contain;
+    width: 100px;
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+
+
+.button{
+    margin-top: 30px;
+}

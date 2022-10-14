@@ -1,0 +1,56 @@
+.projects{
+    height: auto;
+    grid-row: 1/3;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 40px;
+    width: 400px;  
+}
+
+
+.progressTitle{
+    font-family: 'Roboto';
+    color: grey;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.taskContainer{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: block;
+    width: 95%;
+    margin: 30px auto;
+}
+
+.workingHoursTitle, .workingHoursInfo{
+    display: inline-block;
+    font-size: 15px;
+}
+
+.workingHoursTitle{
+    margin-bottom: 20px
+}
+
+.buttons{
+    margin-top: 30px;
+}
+
+.taskInfo{
+    font-size: 17px;
+    margin: 20px 0px;
+    display: inline-block;
+}
+
+.taskTitle,
+.taskInfo,
+.workingHoursTitle,
+.workingHoursInfo,
+.projectTitle,
+.projectDesc,
+.progressTitle{
+    font-family: 'Roboto';
+}
