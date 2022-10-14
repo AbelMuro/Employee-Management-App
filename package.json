@@ -16,10 +16,10 @@
     "@mui/material": "^5.10.9",
     "firebase": "^9.12.0",
     "install": "^0.13.0",
-    "npm": "^8.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.2"
+    "react-router-dom": "^6.4.2",
+    "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

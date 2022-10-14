@@ -37,3 +37,19 @@
 .button{
     margin-top: 30px;
 }
+
+.content{
+    width: 300px;
+    border-radius: 20px;
+    border: 1px solid black;
+    z-index: 2;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    font-family: 'Roboto';
+}
+
+.header{
+    font-family: 'Roboto';
+    font-size: 15px;
+}
