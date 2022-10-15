@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styles from './styles.module.css';
 import BasicInfo from './BasicInfo';
 import Projects from './Projects';
 import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
 import db from './Firebase';
-import { ref, set, onValue, push} from 'firebase/database';
+import { ref, onValue} from 'firebase/database';
 import { useParams } from 'react-router-dom';
 
 function Profile(){
     const {employeeName} = useParams();
+    let employeeNode = useRef();
     const [employeeData, setEmployeeData] = useState(null);
     const reference = ref(db);
 
@@ -22,7 +23,7 @@ function Profile(){
             for(let node in data){
                 if(data[node].name == employeeName){
                     setEmployeeData(data[node])
-                    console.log("found employee");
+                    employeeNode.current = node;
                 }
             }
         })
@@ -32,9 +33,9 @@ function Profile(){
     return !employeeData ? (<LoadingScreen/>) :
     (
         <section className={styles.profile}>
-            <BasicInfo state={employeeData}/>
-            <Projects state={employeeData}/>
-            <Coworkers state={employeeData}/>
+            <BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
+            <Projects state={employeeData} node={employeeNode.current} database={db}/>
+            <Coworkers state={employeeData} node={employeeNode.current} database={db}/>
         </section>
     )
 }

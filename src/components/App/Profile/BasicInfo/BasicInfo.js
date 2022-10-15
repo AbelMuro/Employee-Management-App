@@ -1,14 +1,31 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Popup from 'reactjs-popup';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faX} from '@fortawesome/free-solid-svg-icons'; 
+import { ref, set, push} from 'firebase/database';
 
-
-//TODO: need to make white container with inputs that will be used to update node on database
 function BasicInfo(props){
+    const [,forceRender] = useState(1);
     const employeeData = props.state; 
+    const employeeNode = props.node;
+    const db = props.database;
+
+    const updateDatabase = () => {
+        const allInputs = Array.from(document.querySelectorAll('input'));
+        const reference = ref(db, '/' + employeeNode);
+
+        allInputs.forEach((input) => {
+            let property = input.getAttribute('data-id');
+            employeeData[property] = input.value;
+        })
+
+        set(reference, employeeData);
+        forceRender(2);
+    }
 
     return( 
         <>
@@ -67,61 +84,63 @@ function BasicInfo(props){
                     Years Employed:&nbsp;
                 </h3>
                 <p className={styles.info}> {employeeData['years employed']}</p>
-                <Box className={styles.button}>
-                    <Button variant="contained">Update Info</Button>                          
-                </Box>
-            </div> 
-
-            <Popup trigger={<button className="button"> Open Modal </button>} modal nested>
+                <Popup trigger={<Box className={styles.button}>
+                                <Button variant="contained">Update Info</Button>                          
+                            </Box>} 
+                    modal 
+                    nested>
                 {close => (
-                    <div className='modal'>
                         <div className={styles.content}>
-                            <button className={styles.close} onClick={close}>
-                                &times;
-                            </button>
-                            <div className={styles.header}>
+                            <FontAwesomeIcon icon={faX} onClick={close} className={styles.close}/>
+                            <h1 className={styles.header}>
                                 Update Info
-                            </div>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>
-                            <Box className={styles.inputBox}>
-                                <TextField id="outlined-basic" label={employeeData['name']} variant="outlined" className={styles.inputs}/>
-                            </Box>                            
-                        </div>
-                    </div>                      
+                            </h1>
+                            <hr/>
+                            <br/>
+                            <p className={styles.desc}>
+                                Only change the text fields that you want to update,
+                                leave the rest as it is.
+                            </p>
+
+                            <form className={styles.inputContainer}>
+                                <Box className={styles.inputBox}>
+                                    <p>New Name:</p> <TextField id="outlined-basic" defaultValue={employeeData['name']} inputProps={{'data-id': 'name' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Employee ID: </p> <TextField id="outlined-basic" defaultValue={employeeData['employee id']} inputProps={{'data-id': 'employee id' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Email: </p><TextField id="outlined-basic" defaultValue={employeeData['email']} inputProps={{'data-id': 'email' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Gender: </p><TextField id="outlined-basic" defaultValue={employeeData['gender']} inputProps={{'data-id': 'gender' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Race: </p><TextField id="outlined-basic" defaultValue={employeeData['race']} inputProps={{'data-id': 'race' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Age: </p><TextField id="outlined-basic" defaultValue={employeeData['age']} inputProps={{'data-id': 'age' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Address: </p><TextField id="outlined-basic" defaultValue={employeeData['address']} inputProps={{'data-id': 'address' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Salary: </p><TextField id="outlined-basic" defaultValue={employeeData['salary']} inputProps={{'data-id': 'salary' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>New Birthday: </p><TextField id="outlined-basic" defaultValue={employeeData['birthday']} inputProps={{'data-id': 'birthday' }} variant="outlined"  required/>
+                                </Box>
+                                <Box className={styles.inputBox}>
+                                    <p>Years Employed: </p><TextField id="outlined-basic" defaultValue={employeeData['years employed']} inputProps={{'data-id': 'years employed' }} variant="outlined"  required/>
+                                </Box>   
+                                <Button variant="contained" onClick={updateDatabase}>Submit</Button>    
+                            </form>
+                        </div>                     
                 )}
             </Popup>
+            </div> 
+
+
         </>
 
     )

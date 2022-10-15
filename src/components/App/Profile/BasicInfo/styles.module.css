@@ -39,7 +39,7 @@
 }
 
 .content{
-    width: 300px;
+    width: auto;
     border-radius: 20px;
     border: 1px solid black;
     z-index: 2;
@@ -47,9 +47,44 @@
     background-color: white;
     padding: 20px;
     font-family: 'Roboto';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
+.inputContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    gap: 20px;
+}
+
+.inputBox{
+    font-family: 'Roboto';
+    font-weight: 600;
+}
 .header{
     font-family: 'Roboto';
+    font-size: 25px;
+    text-align: center;
+}
+
+.desc{
+    align-self: center;
+    font-family: 'Roboto';
     font-size: 15px;
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.close{
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    font-size: 35px;
+    align-self: flex-end;
+}
+
+.close:hover{
+    color: grey;
+    transform: scale(1.2, 1.2);   
 }
