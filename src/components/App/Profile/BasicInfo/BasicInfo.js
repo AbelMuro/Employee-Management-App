@@ -84,11 +84,12 @@ function BasicInfo(props){
                     Years Employed:&nbsp;
                 </h3>
                 <p className={styles.info}> {employeeData['years employed']}</p>
-                <Popup trigger={<Box className={styles.button}>
+                <Popup trigger={
+                            <Box className={styles.button}>
                                 <Button variant="contained">Update Info</Button>                          
                             </Box>} 
-                    modal 
-                    nested>
+                        modal 
+                        nested>
                 {close => (
                         <div className={styles.content}>
                             <FontAwesomeIcon icon={faX} onClick={close} className={styles.close}/>
@@ -136,11 +137,9 @@ function BasicInfo(props){
                                 <Button variant="contained" onClick={updateDatabase}>Submit</Button>    
                             </form>
                         </div>                     
-                )}
-            </Popup>
+                    )}
+                </Popup>
             </div> 
-
-
         </>
 
     )
