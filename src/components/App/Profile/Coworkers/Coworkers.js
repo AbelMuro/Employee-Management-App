@@ -1,10 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.css';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Popup from 'reactjs-popup';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faX} from '@fortawesome/free-solid-svg-icons'; 
+import TextField from '@mui/material/TextField';
+import {set, ref} from 'firebase/database';
 
 function Coworkers(props) {
     const employeeData = props.state;
+    const node = props.node;
+    const db = props.database;
+    const [,forceRender] = useState(1);
+
+    const handleClick = () => {
+        const allInputs = Array.from(document.querySelectorAll('input'));
+        allInputs.forEach((input) => {
+            let property = input.getAttribute('data-id');
+            employeeData[property] = input.value;
+        })
+
+        const reference = ref(db, "/" + node);
+        set(reference, employeeData);
+        forceRender(2);
+    }   
+
+    const closeModal = (e) => {
+        const overlay =  e.target.closest('.' + styles.content);
+        if(overlay == null){
+            const closeButton = document.querySelector('#close');
+            closeButton.click();
+        }
+    }
 
     return(
         <div className={styles.department}> 
@@ -46,7 +74,43 @@ function Coworkers(props) {
                 <p className={styles.coworkers}>{employeeData['coworker five']}</p>
             </div>  
             <Box className={styles.button}>
-                <Button variant="contained">Update team</Button>                          
+                <Popup trigger={<Button variant="contained">Update team</Button>} modal>
+                    {close => (
+                        <div className={styles.overlay} onClick={closeModal}>
+                            <div className={styles.content}>
+                                <a onClick={close} className={styles.link} id="close">
+                                    <FontAwesomeIcon icon={faX} className={styles.close}/>                             
+                                </a>
+                                <h1 className={styles.header}>
+                                    Update Team
+                                </h1>
+                                <hr/>
+                                <p className={styles.desc}>
+                                    Replace current coworker
+                                </p>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter Manager Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['manager']} inputProps={{'data-id': 'manager'}} variant="outlined" required/>
+                                </Box>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter First Coworker Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['coworker one']} inputProps={{'data-id': 'coworker one'}} variant="outlined" required/>
+                                </Box>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter Second Coworker Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['coworker two']} inputProps={{'data-id': 'coworker two'}} variant="outlined" required/>
+                                </Box>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter Third Coworker Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['coworker three']} inputProps={{'data-id': 'coworker three'}} variant="outlined" required/>
+                                </Box>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter Fourth Coworker Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['coworker four']} inputProps={{'data-id': 'coworker four'}} variant="outlined" required/>
+                                </Box>
+                                <Box className={styles.inputContainer}>
+                                    <p>Enter Fifth Coworker Name: </p> <TextField id="outlined-basic" defaultValue={employeeData['coworker five']} inputProps={{'data-id': 'coworker five'}} variant="outlined" required/>
+                                </Box>
+                                <Button variant="contained" onClick={handleClick}>Update</Button>   
+                            </div>
+                        </div>
+                    )}
+                </Popup>                   
             </Box>  
         </div>
     )

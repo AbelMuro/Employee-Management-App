@@ -1,11 +1,34 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import Stack from '@mui/material/Stack';
 import ProgressBar from './ProgressBar';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
+import ProgressPopup from './ProgressPopup';
+import {set, ref} from 'firebase/database';
+
 
 function Projects (props) {
+    const [,forceRender] = useState(1);
     const employeeData = props.state;
+    const node = props.node;
+    const db = props.database;
+    let disableTask = useRef({'task one progress': false, 'task two progress': false, 'task three progress': false, 'task four progress': false});
+
+    const updateProgress = (progress, taskNumber) => {
+        const reference = ref(db, "/" + node);
+        employeeData[`${taskNumber}`] = Number(progress);
+        set(reference, employeeData);
+        forceRender(2);
+    }   
+
+    const complete = (e) => {
+        const reference = ref(db, "/" + node);
+        const taskNumber = e.target.id;
+        employeeData[`${taskNumber}`] = 100;
+        set(reference, employeeData);
+        disableTask.current[`${taskNumber}`] = true;
+        forceRender(2);
+    }
 
     return(
     <div className={styles.projects}>
@@ -35,8 +58,8 @@ function Projects (props) {
             </p>
             <ProgressBar value={employeeData['task one progress']}/>  
             <Stack spacing={2} direction="row" className={styles.buttons}>
-                <Button variant="contained">Update Progress</Button> 
-                <Button variant="contained">Complete</Button>                         
+                <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task one progress'} disable={disableTask.current['task one progress']}/>
+                <Button variant="contained" onClick={complete} id='task one progress'>Complete</Button>                         
             </Stack> 
         </div>
         <div className={styles.taskContainer}>
@@ -59,8 +82,8 @@ function Projects (props) {
             </p>
             <ProgressBar value={employeeData['task two progress']}/>
             <Stack spacing={2} direction="row" className={styles.buttons}>
-                <Button variant="contained">Update Progress</Button> 
-                <Button variant="contained">Complete</Button>                         
+                <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task two progress'} disable={disableTask.current['task two progress']}/>
+                <Button variant="contained" onClick={complete} id='task two progress'>Complete</Button>                         
             </Stack>                    
         </div>
         <div className={styles.taskContainer}>
@@ -83,8 +106,8 @@ function Projects (props) {
             </p>
             <ProgressBar value={employeeData['task three progress']}/>   
             <Stack spacing={2} direction="row" className={styles.buttons}>
-                <Button variant="contained">Update Progress</Button> 
-                <Button variant="contained">Complete</Button>                         
+                <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task three progress'} disable={disableTask.current['task three progress']}/>
+                <Button variant="contained" onClick={complete} id='task three progress'>Complete</Button>                         
             </Stack>              
         </div>
         <div className={styles.taskContainer}>
@@ -107,8 +130,8 @@ function Projects (props) {
             </p>
             <ProgressBar value={employeeData['task four progress']}/>    
             <Stack spacing={2} direction="row" className={styles.buttons}>
-                <Button variant="contained">Update Progress</Button> 
-                <Button variant="contained">Complete</Button>                         
+                <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task four progress'} disable={disableTask.current['task four progress']}/>
+                <Button variant="contained" onClick={complete} id='task four progress'>Complete</Button>                         
             </Stack>            
         </div>
     </div>

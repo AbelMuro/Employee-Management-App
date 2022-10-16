@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import Popup from 'reactjs-popup';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faX} from '@fortawesome/free-solid-svg-icons'; 
-import { ref, set, push} from 'firebase/database';
+import { ref, set} from 'firebase/database';
 
 function BasicInfo(props){
     const [,forceRender] = useState(1);
@@ -22,9 +22,16 @@ function BasicInfo(props){
             let property = input.getAttribute('data-id');
             employeeData[property] = input.value;
         })
-
         set(reference, employeeData);
         forceRender(2);
+    }
+
+    const closeModal = (e) => {
+        const overlay =  e.target.closest('.' + styles.content);
+        if(overlay == null){
+            const closeButton = document.querySelector('#close');
+            closeButton.click();
+        }
     }
 
     return( 
@@ -88,11 +95,13 @@ function BasicInfo(props){
                             <Box className={styles.button}>
                                 <Button variant="contained">Update Info</Button>                          
                             </Box>} 
-                        modal 
-                        nested>
+                        modal>
                 {close => (
+                    <div className={styles.overlay} onClick={closeModal}>
                         <div className={styles.content}>
-                            <FontAwesomeIcon icon={faX} onClick={close} className={styles.close}/>
+                            <a onClick={close} id='close' className={styles.link}>
+                                <FontAwesomeIcon icon={faX} className={styles.close}/>                                
+                            </a>
                             <h1 className={styles.header}>
                                 Update Info
                             </h1>
@@ -136,7 +145,9 @@ function BasicInfo(props){
                                 </Box>   
                                 <Button variant="contained" onClick={updateDatabase}>Submit</Button>    
                             </form>
-                        </div>                     
+                        </div>   
+                    </div>
+                        
                     )}
                 </Popup>
             </div> 

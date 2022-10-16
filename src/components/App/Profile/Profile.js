@@ -14,8 +14,6 @@ function Profile(){
     const [employeeData, setEmployeeData] = useState(null);
     const reference = ref(db);
 
-
-
     useEffect(() => {
         onValue(reference, (snapshot) => {
             const data = snapshot.val();

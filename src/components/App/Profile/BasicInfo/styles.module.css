@@ -42,7 +42,6 @@
     width: auto;
     border-radius: 20px;
     border: 1px solid black;
-    z-index: 2;
     margin: auto;
     background-color: white;
     padding: 20px;
@@ -87,4 +86,18 @@
 .close:hover{
     color: grey;
     transform: scale(1.2, 1.2);   
+}
+
+.overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(34, 33, 33, 0.7);
+    width: 100vw;
+    height: 100vh;
+}
+    
+.link{
+    align-self: flex-end;
+    text-decoration-line: none;
 }
