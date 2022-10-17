@@ -1,0 +1,11 @@
+.registerContainer{
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid black;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 15% auto;
+}

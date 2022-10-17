@@ -36,10 +36,6 @@ function LogInPage({firebase}){
         setPassword(e.target.value);
     }
 
-    const handleClick = () => {
-        //navigate("/profile/" + employeeName);
-    }
-
     const createAdmin = () => {
         navigate("/becomeadmin");
     }
