@@ -1,6 +1,7 @@
 import React, {createContext} from 'react';
 import LogInPage from './LogInPage';
 import Profile from './Profile';
+import BecomeAdmin from './BecomeAdmin';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {db, auth} from './firebase';
 import './styles.css'
@@ -13,7 +14,8 @@ function App(){
             <BrowserRouter> 
                 <Routes>          
                     <Route path="/" element={<LogInPage firebase={Firebase}/>}/>
-                    <Route path='/profile/:employeeName' element={<Profile firebase={Firebase}/>}/>
+                    <Route path="/becomeadmin" element={<BecomeAdmin/>}/>
+                    <Route path="/profile/:employeeName" element={<Profile firebase={Firebase}/>}/>
                 </Routes>
             </BrowserRouter>            
         </Firebase.Provider>

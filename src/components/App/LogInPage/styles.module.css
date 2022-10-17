@@ -25,6 +25,13 @@
     font-family: 'Roboto';
 }
 
-.email, .password{
-    
+.becomeAdminToday{
+    text-decoration-line: underline;
+    color: blue;
+    cursor: pointer;
+    margin: 0px 40px;
+}
+
+.becomeAdminToday:hover{
+    color: black;
 }

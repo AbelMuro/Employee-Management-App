@@ -4,19 +4,28 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword , createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword , createUserWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [user, setUser] = useState({})
     const navigate = useNavigate();
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
 
     //now i want to see what i can do with the promise that is returned from the async function below
     const loginEmailPassword = async () => {
-        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-        console.log(userCredentials.user)
+        try{
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+        }
+        catch(error){
+            alert("email or password is incorrect");
+        }
     }
 
     const handleEmail = (e) => {
@@ -29,6 +38,10 @@ function LogInPage({firebase}){
 
     const handleClick = () => {
         //navigate("/profile/" + employeeName);
+    }
+
+    const createAdmin = () => {
+        navigate("/becomeadmin");
     }
 
     return(
@@ -52,8 +65,14 @@ function LogInPage({firebase}){
                 </Box>
                 <br/>
                 <br/>
-                <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Search</Button>              
+                <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>    
+                <a className={styles.becomeAdminToday} onClick={createAdmin}>
+                    Not an admin? Become one today!
+                </a>                  
+        
             </div>
+
+
         </section>
     )
 }
