@@ -54,3 +54,31 @@
 .progressTitle{
     font-family: 'Roboto';
 }
+
+@media(max-width: 1050px){
+    .projects{
+        width: 300px;
+    }
+
+    .individualButton{
+        height: 40px;
+    }
+}
+
+@media(max-width: 850px){
+    .projects{
+        width: 270px;
+    }
+}
+
+@media(max-width: 775px){
+    .projects{
+        grid-row: initial;
+    }
+}
+
+@media(max-width: 415px){
+    .projects{
+        width: 250px
+    }
+}

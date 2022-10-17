@@ -10,7 +10,6 @@ import {faX} from '@fortawesome/free-solid-svg-icons';
 function ProgressPopup (props) {
     const employeeData = props.state;     
     const taskNumber = props.task;
-
     const [progress, setProgress] = useState("" + employeeData[`${taskNumber}`])            //converting a number into a string    
     const updateProgress = props.updateProgress;
     let disable = progress.match(/\D+/g) != null || progress.match(/\D/g) != null || progress < 1 || progress > 100;
@@ -21,6 +20,8 @@ function ProgressPopup (props) {
     }
 
     const handleClick = () => {
+        const closeButton = document.querySelector('#close');
+        closeButton.click();
         updateProgress(progress, taskNumber);
     }
 
@@ -34,7 +35,7 @@ function ProgressPopup (props) {
 
     return(
         <Popup 
-            trigger={<Button disabled={disableUpdateButton} variant="contained">Update Progress</Button> }
+            trigger={<Button disabled={disableUpdateButton} variant="contained" className={styles.individualButton}>Update Progress</Button> }
             modal>
             {close => (
                 <div className={styles.overlay} onClick={closeModal}>

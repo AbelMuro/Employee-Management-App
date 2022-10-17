@@ -40,6 +40,8 @@
 
 .content{
     width: auto;
+    position: relative;         /* i'm using position: relative because im trying to center this element in a container that uses vw units*/
+    left: -7px;
     border-radius: 20px;
     border: 1px solid black;
     margin: auto;
@@ -101,3 +103,66 @@
     align-self: flex-end;
     text-decoration-line: none;
 }
+
+@media(max-width: 1050px){
+    .basicInfo{
+        width: 300px;
+
+    }  
+    .employeeName{
+        width: 200px;
+    }
+}
+
+
+@media(max-width: 850px){
+    .basicInfo{
+        width: 270px;
+    }
+    .employeeName{
+        width: 170px;
+    }
+}
+
+@media(max-width: 775px){
+    .basicInfo{
+        grid-row: initial;
+    }
+}
+
+@media(max-width: 500px){
+    .input{
+        width: 150px;
+    }
+    .content{
+        width: 350px;
+    }
+    .inputContainer{
+        grid-template-columns: repeat(2, 150px);
+    }
+
+}
+
+@media(max-width: 425px){
+    .content{
+        width: 280px;
+    }
+    .inputContainer{
+        grid-template-columns: repeat(2, 130px);
+    }
+    .input{
+        width: 130px;
+    }
+}
+
+
+@media(max-width: 415px){
+    .basicInfo{
+        width: 250px
+    }
+    .employeeName{
+        width: 150px;
+        font-size: 25px;
+    }
+}
+

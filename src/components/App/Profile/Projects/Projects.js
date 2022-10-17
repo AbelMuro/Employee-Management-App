@@ -59,7 +59,7 @@ function Projects (props) {
             <ProgressBar value={employeeData['task one progress']}/>  
             <Stack spacing={2} direction="row" className={styles.buttons}>
                 <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task one progress'} disable={disableTask.current['task one progress']}/>
-                <Button variant="contained" onClick={complete} id='task one progress'>Complete</Button>                         
+                <Button variant="contained" onClick={complete} id='task one progress' className={styles.individualButton}>Complete</Button>                         
             </Stack> 
         </div>
         <div className={styles.taskContainer}>
@@ -83,7 +83,7 @@ function Projects (props) {
             <ProgressBar value={employeeData['task two progress']}/>
             <Stack spacing={2} direction="row" className={styles.buttons}>
                 <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task two progress'} disable={disableTask.current['task two progress']}/>
-                <Button variant="contained" onClick={complete} id='task two progress'>Complete</Button>                         
+                <Button variant="contained" onClick={complete} id='task two progress' className={styles.individualButton}>Complete</Button>                         
             </Stack>                    
         </div>
         <div className={styles.taskContainer}>
@@ -107,7 +107,7 @@ function Projects (props) {
             <ProgressBar value={employeeData['task three progress']}/>   
             <Stack spacing={2} direction="row" className={styles.buttons}>
                 <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task three progress'} disable={disableTask.current['task three progress']}/>
-                <Button variant="contained" onClick={complete} id='task three progress'>Complete</Button>                         
+                <Button variant="contained" onClick={complete} id='task three progress' className={styles.individualButton}>Complete</Button>                         
             </Stack>              
         </div>
         <div className={styles.taskContainer}>
@@ -131,7 +131,7 @@ function Projects (props) {
             <ProgressBar value={employeeData['task four progress']}/>    
             <Stack spacing={2} direction="row" className={styles.buttons}>
                 <ProgressPopup state={employeeData} updateProgress={updateProgress} task={'task four progress'} disable={disableTask.current['task four progress']}/>
-                <Button variant="contained" onClick={complete} id='task four progress'>Complete</Button>                         
+                <Button variant="contained" onClick={complete} id='task four progress' className={styles.individualButton}>Complete</Button>                         
             </Stack>            
         </div>
     </div>

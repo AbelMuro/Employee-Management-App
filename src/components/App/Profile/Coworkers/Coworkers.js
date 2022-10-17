@@ -16,6 +16,7 @@ function Coworkers(props) {
 
     const handleClick = () => {
         const allInputs = Array.from(document.querySelectorAll('input'));
+        const closeButton = document.querySelector('#close');        
         allInputs.forEach((input) => {
             let property = input.getAttribute('data-id');
             employeeData[property] = input.value;
@@ -23,6 +24,7 @@ function Coworkers(props) {
 
         const reference = ref(db, "/" + node);
         set(reference, employeeData);
+        closeButton.click();
         forceRender(2);
     }   
 

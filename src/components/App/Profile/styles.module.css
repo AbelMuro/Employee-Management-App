@@ -8,3 +8,26 @@
 }
 
 
+@media(max-width: 1050px){
+    .profile{
+        grid-template-columns: repeat(2, 380px);
+    }
+}
+
+@media(max-width: 850px){
+    .profile{
+        grid-template-columns: repeat(2, 350px);
+    }
+}
+
+@media(max-width: 775px){
+    .profile{
+        grid-template-columns: 350px;
+    }
+}
+
+@media(max-width: 415px){
+    .profile{
+        grid-template-columns: 330px;
+    }
+}

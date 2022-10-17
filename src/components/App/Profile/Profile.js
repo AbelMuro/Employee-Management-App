@@ -1,27 +1,28 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import styles from './styles.module.css';
 import BasicInfo from './BasicInfo';
 import Projects from './Projects';
 import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
-import db from './Firebase';
 import { ref, onValue} from 'firebase/database';
 import { useParams } from 'react-router-dom';
 
-function Profile(){
+function Profile({firebase}){
+    const {db} = useContext(firebase) 
     const {employeeName} = useParams();
     let employeeNode = useRef();
     const [employeeData, setEmployeeData] = useState(null);
-    const reference = ref(db);
 
+
+    //traversing through the database to find the user's account
     useEffect(() => {
-        onValue(reference, (snapshot) => {
+        const referenceToDB = ref(db); 
+        onValue(referenceToDB, (snapshot) => {
             const data = snapshot.val();
-
             for(let node in data){
                 if(data[node].name == employeeName){
+                    employeeNode.current = node;                    
                     setEmployeeData(data[node])
-                    employeeNode.current = node;
                 }
             }
         })

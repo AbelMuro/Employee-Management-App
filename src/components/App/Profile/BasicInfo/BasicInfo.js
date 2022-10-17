@@ -17,13 +17,15 @@ function BasicInfo(props){
     const updateDatabase = () => {
         const allInputs = Array.from(document.querySelectorAll('input'));
         const reference = ref(db, '/' + employeeNode);
+        const closeButton = document.querySelector('#close');
 
         allInputs.forEach((input) => {
             let property = input.getAttribute('data-id');
             employeeData[property] = input.value;
         })
         set(reference, employeeData);
-        forceRender(2);
+        forceRender(2);        
+        closeButton.click();
     }
 
     const closeModal = (e) => {
@@ -114,34 +116,34 @@ function BasicInfo(props){
 
                             <form className={styles.inputContainer}>
                                 <Box className={styles.inputBox}>
-                                    <p>New Name:</p> <TextField id="outlined-basic" defaultValue={employeeData['name']} inputProps={{'data-id': 'name' }} variant="outlined"  required/>
+                                    <p>New Name:</p> <TextField id="outlined-basic" defaultValue={employeeData['name']} inputProps={{'data-id': 'name' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Employee ID: </p> <TextField id="outlined-basic" defaultValue={employeeData['employee id']} inputProps={{'data-id': 'employee id' }} variant="outlined"  required/>
+                                    <p>New Employee ID: </p> <TextField id="outlined-basic" defaultValue={employeeData['employee id']} inputProps={{'data-id': 'employee id' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Email: </p><TextField id="outlined-basic" defaultValue={employeeData['email']} inputProps={{'data-id': 'email' }} variant="outlined"  required/>
+                                    <p>New Email: </p><TextField id="outlined-basic" defaultValue={employeeData['email']} inputProps={{'data-id': 'email' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Gender: </p><TextField id="outlined-basic" defaultValue={employeeData['gender']} inputProps={{'data-id': 'gender' }} variant="outlined"  required/>
+                                    <p>New Gender: </p><TextField id="outlined-basic" defaultValue={employeeData['gender']} inputProps={{'data-id': 'gender' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Race: </p><TextField id="outlined-basic" defaultValue={employeeData['race']} inputProps={{'data-id': 'race' }} variant="outlined"  required/>
+                                    <p>New Race: </p><TextField id="outlined-basic" defaultValue={employeeData['race']} inputProps={{'data-id': 'race' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Age: </p><TextField id="outlined-basic" defaultValue={employeeData['age']} inputProps={{'data-id': 'age' }} variant="outlined"  required/>
+                                    <p>New Age: </p><TextField id="outlined-basic" defaultValue={employeeData['age']} inputProps={{'data-id': 'age' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Address: </p><TextField id="outlined-basic" defaultValue={employeeData['address']} inputProps={{'data-id': 'address' }} variant="outlined"  required/>
+                                    <p>New Address: </p><TextField id="outlined-basic" defaultValue={employeeData['address']} inputProps={{'data-id': 'address' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Salary: </p><TextField id="outlined-basic" defaultValue={employeeData['salary']} inputProps={{'data-id': 'salary' }} variant="outlined"  required/>
+                                    <p>New Salary: </p><TextField id="outlined-basic" defaultValue={employeeData['salary']} inputProps={{'data-id': 'salary' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>New Birthday: </p><TextField id="outlined-basic" defaultValue={employeeData['birthday']} inputProps={{'data-id': 'birthday' }} variant="outlined"  required/>
+                                    <p>New Birthday: </p><TextField id="outlined-basic" defaultValue={employeeData['birthday']} inputProps={{'data-id': 'birthday' }} variant="outlined" className={styles.input} required/>
                                 </Box>
                                 <Box className={styles.inputBox}>
-                                    <p>Years Employed: </p><TextField id="outlined-basic" defaultValue={employeeData['years employed']} inputProps={{'data-id': 'years employed' }} variant="outlined"  required/>
+                                    <p>Years Employed: </p><TextField id="outlined-basic" defaultValue={employeeData['years employed']} inputProps={{'data-id': 'years employed' }} variant="outlined" className={styles.input} required/>
                                 </Box>   
                                 <Button variant="contained" onClick={updateDatabase}>Submit</Button>    
                             </form>

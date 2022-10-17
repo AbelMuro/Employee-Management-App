@@ -59,6 +59,8 @@
 
 
 .content{
+    position: relative;
+    left: -7px;
     width: 290px;
     border-radius: 20px;
     border: 1px solid black;
@@ -90,4 +92,29 @@
 .close:hover{
     transform: scale(1.2, 1.2);
     color: grey;
+}
+
+
+@media (max-width: 1050px){
+    .department{
+        width: 300px;
+    }
+}
+
+@media(max-width: 850px){
+    .department{
+        width: 270px;
+    }
+}
+
+@media(max-width: 775px){
+    .department{
+        grid-row: initial;
+    }
+}
+
+@media(max-width: 415px){
+    .department{
+        width: 250px
+    }
 }

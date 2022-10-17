@@ -1,4 +1,6 @@
 .content{
+    position: relative;
+    left: -7px;
     width: 290px;
     border-radius: 20px;
     border: 1px solid black;
@@ -52,4 +54,10 @@
 .link{
     align-self: flex-end;
     text-decoration-line: none;
+}
+
+@media(max-width: 1050px){
+    .individualButton{
+        height: 40px;
+    }
 }
