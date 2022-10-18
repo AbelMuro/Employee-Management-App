@@ -4,14 +4,26 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import styles from './styles.module.css';
 import {onAuthStateChanged} from 'firebase/auth';
+import {useNavigate} from 'react-router-dom';
 
 function AdminAccount({firebase}) {
+    const navigate = useNavigate();
     const {auth} = useContext(firebase);
-    const [username, setUsername] = useState(auth.currentUser.displayName)
+    const [employee, setEmployee] = useState("")
+    const [username, setUsername] = useState(auth.currentUser.displayName);
+    let disable = username == "";
 
-    onAuthStateChanged(auth, (user) => {
-        setUsername(user.displayName);
-    })
+    //onAuthStateChanged(auth, (user) => {
+        //setUsername(user.displayName);
+    //})
+
+    const handleChange = (e) => {
+        setEmployee(e.target.value);
+    }
+
+    const submit = () => {
+        navigate("/profile/" + employee);
+    }
 
     return(
         <section className={styles.accountContainer}>
@@ -25,8 +37,8 @@ function AdminAccount({firebase}) {
                 please view this <a>link</a>
             </p>
             <Stack spacing={2}>
-                <TextField id="outlined-basic" label="Employee Name" variant="outlined" className={styles.input} />
-                <Button variant="contained">Search</Button>                  
+                <TextField id="outlined-basic" value={employee} onChange={handleChange} label="Employee Name" variant="outlined" className={styles.input} />
+                <Button disabled={disable} variant="contained" onClick={submit}>Search</Button>                  
             </Stack>
 
         </section> 

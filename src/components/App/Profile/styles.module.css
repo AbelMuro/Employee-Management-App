@@ -4,6 +4,11 @@
     justify-content: center;
     height: auto;
     gap: 40px;
+    margin-top: 80px
+}
+
+.goBack{
+    grid-column: 1/3;
 }
 
 

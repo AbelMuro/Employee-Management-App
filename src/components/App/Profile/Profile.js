@@ -6,6 +6,8 @@ import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
 import { ref, onValue} from 'firebase/database';
 import { useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 function Profile({firebase}){
     const {db} = useContext(firebase) 
@@ -32,6 +34,9 @@ function Profile({firebase}){
     return !employeeData ? (<LoadingScreen/>) :
     (
         <section className={styles.profile}>
+            <Box className={styles.goBack}>
+                <Button variant="contained">Go Back</Button>   
+            </Box>
             <BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
             <Projects state={employeeData} node={employeeNode.current} database={db}/>
             <Coworkers state={employeeData} node={employeeNode.current} database={db}/>

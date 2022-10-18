@@ -1,5 +1,5 @@
 .basicInfo{
-    height: 800px;
+    height: auto;
     grid-row: 1/2;
     background-color: white;
     border: 1px solid black;
