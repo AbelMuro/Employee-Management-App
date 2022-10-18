@@ -17,7 +17,7 @@ function LogInPage({firebase}){
     //now i want to see what i can do with the promise that is returned from the async function below
     const loginEmailPassword = async () => {
         try{
-            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, email, password);
             navigate("/adminaccount");
         }
         catch(error){

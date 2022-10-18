@@ -19,7 +19,7 @@ function BecomeAdmin({firebase}) {
             if(username == ""){
                 throw "name is empty";
             }
-            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+            await createUserWithEmailAndPassword(auth, email, password);
             updateProfile(auth.currentUser, {
                 displayName: username
             })
@@ -58,7 +58,7 @@ function BecomeAdmin({firebase}) {
             <p className={styles.companyName}>Xtra-ordinary Company</p>
             <h1 className={styles.title}>Register</h1>
             <p className={styles.desc}>
-                To register as an admin, enter your email and a password,
+                To register as an admin, enter your username, email and a password,
                 Password must contain at least one digit, one letter and one symbol
             </p>
             <Stack spacing={2}>
