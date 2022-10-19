@@ -1,20 +1,21 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styles from './styles.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
+import { signInWithEmailAndPassword , sendSignInLinkToEmail, isSignInWithEmailLink ,signOut, signInWithEmailLink} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
+    console.log(auth);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
 
-    //now i want to see what i can do with the promise that is returned from the async function below
+
     const loginEmailPassword = async () => {
         try{
             await signInWithEmailAndPassword(auth, email, password);
@@ -23,6 +24,24 @@ function LogInPage({firebase}){
         catch(error){
             alert("email or password is incorrect");
         }
+    }
+
+    //TODO: i want to make this async function part of another component.
+    const loginWithEmailLink = async () => {
+        try{
+            await sendSignInLinkToEmail(auth, email, {
+                url: 'http://localhost:8080',
+                handleCodeInApp: true,
+            })
+            .then(() => {
+                localStorage.setItem("emailForSignIn", email);
+            })
+            alert("email login link has been sent");            
+        }
+        catch(error){
+            alert(error.message);
+        }
+
     }
 
     const handleEmail = (e) => {
@@ -36,6 +55,20 @@ function LogInPage({firebase}){
     const createAdmin = () => {
         navigate("/becomeadmin");
     }
+
+
+    //checking to see if the user logged in through an email link
+    useEffect(() => {
+        const saved_email = localStorage.getItem("emailForSignIn");
+        if(isSignInWithEmailLink(auth, window.location.href) && saved_email){
+            signInWithEmailLink(auth, saved_email, window.location.href)
+            .then(() => {
+                navigate("/adminaccount");
+            })
+        }      
+    },[])
+
+
 
     return(
         <section>
@@ -55,7 +88,8 @@ function LogInPage({firebase}){
                     <TextField id="outlined-basic" label="Enter Password" variant="outlined" type='password' value={password} onChange={handlePassword}/>  
                 </Stack>
 
-                <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>    
+                <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>  
+                <Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button> 
                 <a className={styles.becomeAdminToday} onClick={createAdmin}>
                     Not an admin? Become one today!
                 </a>                  

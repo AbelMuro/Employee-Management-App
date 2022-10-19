@@ -15,7 +15,10 @@ module.exports = {
             template: './src/index.html'      
         })
     ],
-    module: {
+    devServer: {
+        historyApiFallback: true            //this property helps with routing requests on the front end
+    },                                      //instead of making a server request, react will make a client side routing
+    module: {                               //request everytime you refresh the page
         rules: [                               
             {                                   
                 test: /\.js$/, 

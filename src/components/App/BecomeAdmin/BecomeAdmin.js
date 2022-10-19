@@ -16,9 +16,7 @@ function BecomeAdmin({firebase}) {
 
     const register = async () => {
         try {
-            if(username == ""){
-                throw "name is empty";
-            }
+            if(username == "") throw "name is empty";
             await createUserWithEmailAndPassword(auth, email, password);
             updateProfile(auth.currentUser, {
                 displayName: username
@@ -33,6 +31,8 @@ function BecomeAdmin({firebase}) {
                 alert("Please enter a valid email address")
             else if(error == "name is empty")
                 alert("Please enter your user name")
+            else
+                alert(error.message);
         }
        
     }
@@ -71,7 +71,7 @@ function BecomeAdmin({firebase}) {
                 <Button variant="contained" onClick={goBack}>Go Back</Button>                  
             </Stack>
         </section>
-        )
+    )
 }
 
 export default BecomeAdmin;

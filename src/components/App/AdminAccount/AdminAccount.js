@@ -13,9 +13,9 @@ function AdminAccount({firebase}) {
     const [username, setUsername] = useState(auth.currentUser.displayName);
     let disable = username == "";
 
-    //onAuthStateChanged(auth, (user) => {
-        //setUsername(user.displayName);
-    //})
+    onAuthStateChanged(auth, (user) => {
+        setUsername(user.displayName);
+    })
 
     const handleChange = (e) => {
         setEmployee(e.target.value);
@@ -24,6 +24,19 @@ function AdminAccount({firebase}) {
     const submit = () => {
         navigate("/profile/" + employee);
     }
+
+    const logOut = async () => {
+        try{
+            await signOut(auth);   
+            alert("logged out, redirecting to log in page");   
+            localStorage.removeItem("emailForSignIn");  
+            navigate(-1);    
+        }
+        catch(error){
+            console.log(error.message)
+        }
+    }
+
 
     return(
         <section className={styles.accountContainer}>
@@ -38,7 +51,8 @@ function AdminAccount({firebase}) {
             </p>
             <Stack spacing={2}>
                 <TextField id="outlined-basic" value={employee} onChange={handleChange} label="Employee Name" variant="outlined" className={styles.input} />
-                <Button disabled={disable} variant="contained" onClick={submit}>Search</Button>                  
+                <Button disabled={disable} variant="contained" onClick={submit}>Search</Button>  
+                <Button disabled={disable} variant="contained" onClick={logOut}>Log Out</Button>                 
             </Stack>
 
         </section> 
