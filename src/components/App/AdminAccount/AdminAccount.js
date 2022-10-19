@@ -14,6 +14,7 @@ function AdminAccount({firebase}) {
     let user = useRef(auth.currentUser);
     let disable = employee == "";
 
+    //still trying to fix this
     onAuthStateChanged(auth, (currentUser) => {
         user.current = currentUser;
     })
