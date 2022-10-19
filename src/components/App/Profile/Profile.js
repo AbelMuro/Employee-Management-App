@@ -22,6 +22,7 @@ function Profile({firebase}){
         onValue(referenceToDB, (snapshot) => {
             const data = snapshot.val();
             for(let node in data){
+                //need to find a way to get all the names in database into a separate file
                 if(data[node].name == employeeName){
                     employeeNode.current = node;                    
                     setEmployeeData(data[node])

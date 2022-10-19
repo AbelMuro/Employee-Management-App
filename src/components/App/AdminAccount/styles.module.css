@@ -13,7 +13,9 @@
 
 .welcome{
     font-family: "Roboto";
-    font-size: 40px
+    font-size: 40px;
+    align-self: center;
+    text-align: center;
 }
 
 .desc{

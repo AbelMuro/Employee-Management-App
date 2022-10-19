@@ -10,27 +10,24 @@ import {signOut} from 'firebase/auth'
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
-    const [employee, setEmployee] = useState("")
-    let user = useRef(auth.currentUser);
-    let disable = employee == "";
-
-    //still trying to fix this
+    const [user, setUser] = useState({});
+    
+    //usually triggers when the user logs in or logs out, 
+    //but can be used when the user refreshes the page to make sure
+    //the auth variable remains consistent
     onAuthStateChanged(auth, (currentUser) => {
-        user.current = currentUser;
+        setUser(currentUser);
     })
 
-    const handleChange = (e) => {
-        setEmployee(e.target.value);
-    }
-
     const submit = () => {
+        let employee = document.querySelector("." + styles.input).value;
         navigate("/profile/" + employee);
     }
 
     const logOut = async () => {
         try{
             await signOut(auth);   
-            alert("logged out, redirecting to log in page");   
+            alert("logging out, redirecting to log in page");   
             localStorage.removeItem("emailForSignIn");  
             navigate(-1);    
         }
@@ -44,7 +41,7 @@ function AdminAccount({firebase}) {
         <section className={styles.accountContainer}>
             <p className={styles.companyName}>Xtra-ordinary Company</p>
             <h1 className={styles.welcome}>
-                Welcome {user.current.displayName}
+                Welcome {user.displayName}
             </h1>
             <p className={styles.desc}>
                 Please enter the name of the employee account that you 
@@ -52,8 +49,8 @@ function AdminAccount({firebase}) {
                 please view this <a>link</a>
             </p>
             <Stack spacing={2}>
-                <TextField id="outlined-basic" value={employee} onChange={handleChange} label="Employee Name" variant="outlined" className={styles.input} />
-                <Button disabled={disable} variant="contained" onClick={submit}>Search</Button>  
+                <TextField id="outlined-basic" label="Employee Name" variant="outlined" className={styles.input} />
+                <Button variant="contained" onClick={submit}>Search</Button>  
                 <Button variant="contained" onClick={logOut}>Log Out</Button>                 
             </Stack>
 
