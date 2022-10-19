@@ -4,16 +4,14 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword , sendSignInLinkToEmail, isSignInWithEmailLink ,signOut, signInWithEmailLink} from 'firebase/auth';
+import { signInWithEmailAndPassword , sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
-    console.log(auth);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
-
 
 
     const loginEmailPassword = async () => {
@@ -27,21 +25,8 @@ function LogInPage({firebase}){
     }
 
     //TODO: i want to make this async function part of another component.
-    const loginWithEmailLink = async () => {
-        try{
-            await sendSignInLinkToEmail(auth, email, {
-                url: 'http://localhost:8080',
-                handleCodeInApp: true,
-            })
-            .then(() => {
-                localStorage.setItem("emailForSignIn", email);
-            })
-            alert("email login link has been sent");            
-        }
-        catch(error){
-            alert(error.message);
-        }
-
+    const loginWithEmailLink = () => {
+        navigate("/loginwithemaillink");
     }
 
     const handleEmail = (e) => {
@@ -87,9 +72,11 @@ function LogInPage({firebase}){
                     <TextField id="outlined-basic" label="Enter Email" variant="outlined" value={email} onChange={handleEmail}/> 
                     <TextField id="outlined-basic" label="Enter Password" variant="outlined" type='password' value={password} onChange={handlePassword}/>  
                 </Stack>
+                <Stack spacing={2}>
+                    <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>  
+                    <Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button>                     
+                </Stack>
 
-                <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>  
-                <Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button> 
                 <a className={styles.becomeAdminToday} onClick={createAdmin}>
                     Not an admin? Become one today!
                 </a>                  

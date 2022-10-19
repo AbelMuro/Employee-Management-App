@@ -1,20 +1,21 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import styles from './styles.module.css';
 import {onAuthStateChanged} from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
+import {signOut} from 'firebase/auth'
 
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
     const [employee, setEmployee] = useState("")
-    const [username, setUsername] = useState(auth.currentUser.displayName);
-    let disable = username == "";
+    let user = useRef(auth.currentUser);
+    let disable = employee == "";
 
-    onAuthStateChanged(auth, (user) => {
-        setUsername(user.displayName);
+    onAuthStateChanged(auth, (currentUser) => {
+        user.current = currentUser;
     })
 
     const handleChange = (e) => {
@@ -42,7 +43,7 @@ function AdminAccount({firebase}) {
         <section className={styles.accountContainer}>
             <p className={styles.companyName}>Xtra-ordinary Company</p>
             <h1 className={styles.welcome}>
-                Welcome {username}
+                Welcome {user.current.displayName}
             </h1>
             <p className={styles.desc}>
                 Please enter the name of the employee account that you 
@@ -52,7 +53,7 @@ function AdminAccount({firebase}) {
             <Stack spacing={2}>
                 <TextField id="outlined-basic" value={employee} onChange={handleChange} label="Employee Name" variant="outlined" className={styles.input} />
                 <Button disabled={disable} variant="contained" onClick={submit}>Search</Button>  
-                <Button disabled={disable} variant="contained" onClick={logOut}>Log Out</Button>                 
+                <Button variant="contained" onClick={logOut}>Log Out</Button>                 
             </Stack>
 
         </section> 
