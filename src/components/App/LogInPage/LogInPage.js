@@ -54,7 +54,10 @@ function LogInPage({firebase}){
         }      
     },[])
 
-    //im thinking of making another useEffect here to load localstorage or cookies 
+    //checks to see if the user is already logged in, so they can skip the log in process
+    useEffect(() => {
+        
+    })
 
     return(
         <section>
