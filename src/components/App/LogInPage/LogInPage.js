@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword , sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
+import { signInWithEmailAndPassword, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
@@ -54,7 +54,7 @@ function LogInPage({firebase}){
         }      
     },[])
 
-
+    //im thinking of making another useEffect here to load localstorage or cookies 
 
     return(
         <section>
