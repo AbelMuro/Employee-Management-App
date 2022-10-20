@@ -10,13 +10,16 @@ import {signOut} from 'firebase/auth'
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState("");
     
     //usually triggers when the user logs in or logs out, 
     //but can be used when the user refreshes the page to make sure
     //the auth variable remains consistent
     onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
+        if(currentUser != null)
+            setUser(currentUser.displayName);
+        else 
+            setUser("");
     })
 
     const submit = () => {
@@ -41,7 +44,7 @@ function AdminAccount({firebase}) {
         <section className={styles.accountContainer}>
             <p className={styles.companyName}>Xtra-ordinary Company</p>
             <h1 className={styles.welcome}>
-                Welcome {user.displayName}
+                Welcome {user}
             </h1>
             <p className={styles.desc}>
                 Please enter the name of the employee that you 

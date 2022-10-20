@@ -5,12 +5,13 @@ import Projects from './Projects';
 import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
 import { ref, onValue} from 'firebase/database';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 function Profile({firebase}){
-    const {db} = useContext(firebase) 
+    const {db} = useContext(firebase);
+    const navigate = useNavigate(); 
     const {employeeName} = useParams();
     let employeeNode = useRef();
     const [employeeData, setEmployeeData] = useState(null);
@@ -30,10 +31,14 @@ function Profile({firebase}){
         })
     }, [])
 
+    const goBack = () => {
+        navigate(-1);
+    }
+
     return !employeeData ? (<LoadingScreen/>) : (
         <section className={styles.profile}>
            <Box className={styles.goBack}>
-                <Button variant="contained">Go Back</Button>   
+                <Button variant="contained" onClick={goBack}>Go Back</Button>   
             </Box>
             <BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
             <Projects state={employeeData} node={employeeNode.current} database={db}/>

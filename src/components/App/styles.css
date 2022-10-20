@@ -14,7 +14,7 @@ body{
     align-items: center;
     min-height: 100vh;
     border: 1px solid transparent;                                  /* for margin collapse*/
-    background-image: url('./images/purple waves.jpg');
+    background-image: url('./images/purple waves.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
