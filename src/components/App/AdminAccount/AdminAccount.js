@@ -20,7 +20,7 @@ function AdminAccount({firebase}) {
     })
 
     const submit = () => {
-        let employee = document.querySelector("." + styles.input).value;
+        let employee = document.querySelector("input").value;
         navigate("/profile/" + employee);
     }
 

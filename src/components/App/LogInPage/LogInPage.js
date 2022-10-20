@@ -20,6 +20,7 @@ function LogInPage({firebase}){
             navigate("/adminaccount");
         }
         catch(error){
+            console.log(error.message);
             alert("email or password is incorrect");
         }
     }

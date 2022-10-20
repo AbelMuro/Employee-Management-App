@@ -22,27 +22,89 @@ function Profile({firebase}){
         onValue(referenceToDB, (snapshot) => {
             const data = snapshot.val();
             for(let node in data){
-                //need to find a way to get all the names in database into a separate file
-                if(data[node].name == employeeName){
-                    employeeNode.current = node;                    
-                    setEmployeeData(data[node])
-                }
+                let currentNode = data[node];
+                let tableRow = document.createElement('tr');
+
+                let tableDataOne =  document.createElement('td');
+                tableDataOne.innerHTML = currentNode["name"];
+                tableRow.appendChild(tableDataOne)
+
+                let tableDataTwo =  document.createElement('td');
+                tableDataTwo.innerHTML = currentNode["employee id"];
+                tableRow.appendChild(tableDataTwo)
+
+                let tableDataThree =  document.createElement('td');
+                tableDataThree.innerHTML = currentNode["email"];
+                tableRow.appendChild(tableDataThree)
+
+                let tableDataFour =  document.createElement('td');
+                tableDataFour.innerHTML = currentNode["gender"];
+                tableRow.appendChild(tableDataFour)
+
+                let tableDataFive =  document.createElement('td');
+                tableDataFive.innerHTML = currentNode["address"];
+                tableRow.appendChild(tableDataFive)
+
+                let tableDataSix =  document.createElement('td');
+                tableDataSix.innerHTML = currentNode["race"];
+                tableRow.appendChild(tableDataSix)
+
+                let tableDataSeven =  document.createElement('td');
+                tableDataSeven.innerHTML = currentNode["age"];
+                tableRow.appendChild(tableDataSeven)
+
+                let tableDataEight =  document.createElement('td');
+                tableDataEight.innerHTML = currentNode["job title"];
+                tableRow.appendChild(tableDataEight)
+
+                let tableDataNine =  document.createElement('td');
+                tableDataNine.innerHTML = currentNode["birthday"];
+                tableRow.appendChild(tableDataNine)
+
+                let table = document.querySelector("tbody");
+                table.appendChild(tableRow);
+
+                //if(data[node].name == employeeName) {
+                    //employeeNode.current = node;                    
+                    //setEmployeeData(data[node])
+                //}
             }
         })
     }, [])
 
 
-    return !employeeData ? (<LoadingScreen/>) :
-    (
-        <section className={styles.profile}>
-            <Box className={styles.goBack}>
-                <Button variant="contained">Go Back</Button>   
-            </Box>
-            <BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
-            <Projects state={employeeData} node={employeeNode.current} database={db}/>
-            <Coworkers state={employeeData} node={employeeNode.current} database={db}/>
-        </section>
+
+    return (
+        <div className={styles.container}>
+            <table className={styles.table}>
+                <tbody>
+                    <tr className={styles.header}>
+                        <th>Name</th>
+                        <th>Employee #</th>   
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th>Race</th>
+                        <th>Age</th>       
+                        <th>Job Title</th>                     
+                        <th>Birthday</th>      
+                    </tr>                    
+                </tbody>
+            </table>
+
+        </div>
+
     )
 }
 
-export default Profile;
+export default Profile;     
+
+//return !employeeData ? (<LoadingScreen/>) :
+//<section className={styles.profile}>
+           // <Box className={styles.goBack}>
+                //<Button variant="contained">Go Back</Button>   
+            //</Box>
+            //<BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
+            //<Projects state={employeeData} node={employeeNode.current} database={db}/>
+            //<Coworkers state={employeeData} node={employeeNode.current} database={db}/>
+        //</section>
