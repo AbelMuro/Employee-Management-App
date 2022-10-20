@@ -26,3 +26,14 @@
     font-family: "Roboto";
     color: grey;
 }
+
+.pdfFile{
+    font-family: "Roboto";
+    color: blue;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+.pdfFile:hover{
+    color: grey;
+}

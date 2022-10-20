@@ -46,7 +46,7 @@ function AdminAccount({firebase}) {
             <p className={styles.desc}>
                 Please enter the name of the employee account that you 
                 would like to update. For a complete list of employee names, 
-                please view this <a>link</a>
+                please view this <a className={styles.pdfLink} target="_blank" href={"https://drive.google.com/file/d/1jDzXl1F-wiVG-OR7hU3vdSTkEkKk5gCC/view?usp=sharing"}>link</a>
             </p>
             <Stack spacing={2}>
                 <TextField id="outlined-basic" label="Employee Name" variant="outlined" className={styles.input} />

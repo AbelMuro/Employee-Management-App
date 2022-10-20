@@ -81,10 +81,7 @@ function LogInPage({firebase}){
                 <a className={styles.becomeAdminToday} onClick={createAdmin}>
                     Not an admin? Become one today!
                 </a>                  
-        
             </div>
-
-
         </section>
     )
 }
