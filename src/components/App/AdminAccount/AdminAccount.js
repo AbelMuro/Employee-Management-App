@@ -1,4 +1,4 @@
-import React, {useContext, useState, useRef} from 'react';
+import React, {useContext, useState} from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -10,16 +10,14 @@ import {signOut} from 'firebase/auth'
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
-    const [user, setUser] = useState("");
+    let [user, setUser] = useState("");
     
     //usually triggers when the user logs in or logs out, 
     //but can be used when the user refreshes the page to make sure
     //the auth variable remains consistent
     onAuthStateChanged(auth, (currentUser) => {
         if(currentUser != null)
-            setUser(currentUser.displayName);
-        else 
-            setUser("");
+            setUser(currentUser.displayName)                  
     })
 
     const submit = () => {
@@ -30,9 +28,8 @@ function AdminAccount({firebase}) {
     const logOut = async () => {
         try{
             await signOut(auth);   
-            alert("logging out, redirecting to log in page");   
-            localStorage.removeItem("emailForSignIn");  
-            navigate(-1);    
+            alert("logging out, re-directing to login page");   
+            navigate("/");    
         }
         catch(error){
             console.log(error.message)

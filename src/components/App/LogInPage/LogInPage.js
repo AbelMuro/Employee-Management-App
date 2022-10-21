@@ -4,28 +4,16 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
+import { signInWithEmailAndPassword , onAuthStateChanged, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('');
+    const [emailValidation, setEmailValidation] = useState();
     const navigate = useNavigate();
 
-
-    const loginEmailPassword = async () => {
-        try{
-            await signInWithEmailAndPassword(auth, email, password);
-            navigate("/adminaccount");
-        }
-        catch(error){
-            console.log(error.message);
-            alert("email or password is incorrect");
-        }
-    }
-
-    //TODO: i want to make this async function part of another component.
     const loginWithEmailLink = () => {
         navigate("/loginwithemaillink");
     }
@@ -43,21 +31,42 @@ function LogInPage({firebase}){
     }
 
 
-    //checking to see if the user logged in through an email link
-    useEffect(() => {
-        const saved_email = localStorage.getItem("emailForSignIn");
-        if(isSignInWithEmailLink(auth, window.location.href) && saved_email){
-            signInWithEmailLink(auth, saved_email, window.location.href)
-            .then(() => {
-                navigate("/adminaccount");
-            })
-        }      
-    },[])
+    //logging in with email and password, and checking to see if 
+    //the email/passwords are valid
+    const loginEmailPassword = async () => {
+        try{
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            if (!userCredentials.user.emailVerified) throw "email not verified";
+            navigate("/adminaccount");
+        }
+        catch(error){
+            if(error == "email not verified") 
+                alert("Please verify your email");
+            else
+                alert("email or password is incorrect");
+        }
+    }
 
-    //checks to see if the user is already logged in, so they can skip the log in process
-    useEffect(() => {
-        
+    //checking to see if the user logged in through an email link
+    //useEffect(() => {
+       //const saved_email = localStorage.getItem("emailLinkForSignIn");
+        //if(isSignInWithEmailLink(auth, window.location.href) && saved_email){
+            //signInWithEmailLink(auth, saved_email, window.location.href)
+            //.then(() => {
+                //localStorage.removeItem("emailLinkForSignIn");
+                //navigate("/adminaccount");
+            //})
+       // }      
+    //},[])
+
+    //if the user has already logged in before, but hasn't logged out
+    //they will automatically be logged in and be redirected to the account page
+    onAuthStateChanged(auth, (currentUser) => {
+        if(currentUser == null) return;
+        if(!currentUser.emailVerified) return;
+        navigate("/adminaccount");
     })
+
 
     return(
         <section>
@@ -69,8 +78,8 @@ function LogInPage({firebase}){
                 <p className={styles.desc}>
                     This App will search through a database of employees of
                     some random company and will then display info about the employee.
-                    But first, you must be an admin to make changes to the database.
-                    Login with your email and password
+                    But first, you must be an admin to view and make changes to the database.
+                    Login with your email and password.
                 </p>
                 <Stack spacing={2}>
                     <TextField id="outlined-basic" label="Enter Email" variant="outlined" value={email} onChange={handleEmail}/> 
@@ -78,13 +87,16 @@ function LogInPage({firebase}){
                 </Stack>
                 <Stack spacing={2}>
                     <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>  
-                    <Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button>                     
+                    {/*<Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button> */}                    
                 </Stack>
 
                 <a className={styles.becomeAdminToday} onClick={createAdmin}>
                     Not an admin? Become one today!
                 </a>                  
+        
             </div>
+
+
         </section>
     )
 }
