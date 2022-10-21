@@ -1,8 +1,8 @@
 .gridContainer{
     display: grid;
     grid-template-columns: 480px 480px;
+    justify-content: space-evenly;
     gap: 40px;
-    width: 1000px;
     margin: auto;
     margin-top: 30px;
 }
@@ -13,6 +13,7 @@
     width: 482px;
     height: 800px;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .loadingBox{
@@ -42,6 +43,7 @@
     width: 482px;
     height: 1000px;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .loadingTask{
@@ -59,8 +61,41 @@
     width: 482px;
     height: 400px;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .coworkerContainer{
     margin-bottom: 20px;
+}
+
+@media(max-width: 1050px) {
+    .gridContainer{
+        grid-template-columns: repeat(2, 380px);
+    }
+
+    .loadingCoworkers, .loadingProjects, .loadingBasicInfo{
+        width: 100%; 
+    }
+}
+
+@media (max-width: 850px){
+    .gridContainer{
+        grid-template-columns: repeat(2, 350px);
+    }
+}
+
+@media(max-width: 775px){
+    .gridContainer{
+        grid-template-columns: 350px;
+    }
+    .loadingBasicInfo, .loadingProjects, .loadingCoworkers {
+        grid-row: initial;
+        grid-column: initial;
+    }
+}
+
+@media(max-width: 415px){
+    .gridContainer{
+        grid-template-columns: 330px;
+    }
 }

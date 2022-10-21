@@ -19,7 +19,7 @@ function App(){
                     <Route path="/adminaccount" element={<AdminAccount firebase={Firebase}/>}/>
                     <Route path="/becomeadmin" element={<BecomeAdmin firebase={Firebase}/>}/>
                     {/* <Route path="/loginwithemaillink" element={<LoginWithEmailLink firebase={Firebase}/>}/> */}
-                    <Route path="/profile/:employeeName" element={<Profile firebase={Firebase}/>}/>
+                    <Route path="/:employeeName" element={<Profile firebase={Firebase}/>}/>
                 </Routes>
             </BrowserRouter>            
         </Firebase.Provider>

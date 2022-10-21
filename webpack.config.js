@@ -6,12 +6,12 @@ module.exports = {
 
     entry: './src/index.js',                 
     output: {                                              
-        path: path.join(__dirname, '/dist'),  
+        path: path.join(__dirname, '/dist'), 
         filename: 'bundle.js'                
     },
     plugins: [                      
         new HtmlWebpackPlugin({               
-            filename: 'index.html',           
+            filename: 'index.html',         
             template: './src/index.html'      
         })
     ],
@@ -32,7 +32,7 @@ module.exports = {
                 use: [{loader: 'style-loader'}, {loader: 'css-loader'}]             
             },
             {
-                test: /\.(png|jpeg|webp|mp4|wav|pdf)$/,
+                test: /\.(png|jpeg|webp|mp4|wav)$/,
                 type: 'asset/resource'                                             
             },                                                                     
         ]

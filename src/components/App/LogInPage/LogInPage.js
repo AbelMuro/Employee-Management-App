@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import styles from './styles.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,16 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword , onAuthStateChanged, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
 
 
+//TODO: must work on the responsiveness of these components
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [emailValidation, setEmailValidation] = useState();
     const navigate = useNavigate();
 
-    const loginWithEmailLink = () => {
-        navigate("/loginwithemaillink");
-    }
+    //const loginWithEmailLink = () => {
+        //navigate("/loginwithemaillink");
+    //}
 
     const handleEmail = (e) => {
         setEmail(e.target.value);

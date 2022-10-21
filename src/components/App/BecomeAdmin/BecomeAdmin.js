@@ -1,8 +1,10 @@
 import React, {useState, useContext} from 'react';
 import styles from './styles.module.css';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile, signOut, sendEmailVerification} from 'firebase/auth';
 
@@ -11,7 +13,8 @@ function BecomeAdmin({firebase}) {
     const {auth} = useContext(firebase);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState(""); 
-    const [username, setUsername] = useState("");     
+    const [username, setUsername] = useState("");  
+    const [loading, setLoading] = useState(false);   
     let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6;
 
     const handleEmail = (e) => {
@@ -72,7 +75,12 @@ function BecomeAdmin({firebase}) {
                 <TextField id="outlined-basic" value={password} onChange={handlePassword} type="Password" label="New Password" variant="outlined" className={styles.input} />                
             </Stack>
             <Stack spacing={2}>
-                <Button disabled={disable} variant="contained" onClick={register}>Register</Button>                 
+                <Box className={styles.loadingButton}>
+                    {/* this is where i left off, trying to center the progress circle in the button*/}
+                    <Button disabled={disable} variant="contained" onClick={register} sx={{width: '100%'}}>Register</Button>         
+                    <CircularProgress size={24} sx={{position: 'absolute', left: 0, right: 0, top: '5px',margin: 'auto'}}/>               
+                </Box>
+             
                 <Button variant="contained" onClick={goBack}>Go Back</Button>                  
             </Stack>
         </section>

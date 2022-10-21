@@ -17,32 +17,42 @@ function Profile({firebase}){
     const [employeeData, setEmployeeData] = useState(null);
 
 
-    //traversing through the database to find the user's account
-    useEffect(() => {
-        const referenceToDB = ref(db); 
-        onValue(referenceToDB, (snapshot) => {
-            const data = snapshot.val();
-            for(let node in data){
-                if(data[node].name == employeeName) {
-                    employeeNode.current = node;                    
-                    setEmployeeData(data[node])
-                }
-            }
-        })
-    }, [])
-
     const goBack = () => {
         navigate(-1);
     }
 
+    //traversing through the database to find the user's account
+    useEffect(() => {
+        const referenceToDB = ref(db); 
+        let nodeExists = false;
+        onValue(referenceToDB, (snapshot) => {
+            const data = snapshot.val();
+            for(let node in data){
+                let currentNode = data[node];
+                let nameInDatabase = currentNode.name.toLowerCase(); 
+                if(nameInDatabase == employeeName) {
+                    employeeNode.current = node;                    
+                    setEmployeeData(data[node]);
+                    nodeExists = true;
+                }
+            }
+            if(!nodeExists) {
+                alert("Name that you entered does not exist in the database");
+                navigate(-1);
+            }
+        })
+    }, [])
+
+
+
     return !employeeData ? (<LoadingScreen/>) : (
         <section className={styles.profile}>
-           <Box className={styles.goBack}>
+            <Box className={styles.goBack}>
                 <Button variant="contained" onClick={goBack}>Go Back</Button>   
             </Box>
-            <BasicInfo state={employeeData} node={employeeNode.current} database={db}/>
-            <Projects state={employeeData} node={employeeNode.current} database={db}/>
-            <Coworkers state={employeeData} node={employeeNode.current} database={db}/>
+           <BasicInfo state={employeeData} node={employeeNode.current} database={db}/> 
+           <Projects state={employeeData} node={employeeNode.current} database={db}/> 
+           <Coworkers state={employeeData} node={employeeNode.current} database={db}/>
         </section>
     )
 }

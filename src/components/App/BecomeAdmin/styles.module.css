@@ -33,3 +33,20 @@
 .input{
     width: 400px;
 }
+
+.loadingButton{
+    position: relative;
+}
+
+.loadingCircle{
+    position: absolute;
+}
+
+@media (max-width: 510px){
+    .registerContainer{
+        width: 80%;
+    }
+    .input{
+        width: 100%;
+    }
+}

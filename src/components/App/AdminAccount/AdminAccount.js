@@ -10,19 +10,25 @@ import {signOut} from 'firebase/auth'
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
-    let [user, setUser] = useState("");
+    const [user, setUser] = useState("");
     
     //usually triggers when the user logs in or logs out, 
     //but can be used when the user refreshes the page to make sure
     //the auth variable remains consistent
     onAuthStateChanged(auth, (currentUser) => {
         if(currentUser != null)
-            setUser(currentUser.displayName)                  
+            setUser(currentUser.displayName);
+        else
+            setUser("");                  
     })
 
     const submit = () => {
-        let employee = document.querySelector("input").value;
-        navigate("/profile/" + employee);
+        const employeeName = document.querySelector("." + styles.input).value;
+        if(employeeName == "") {
+            alert("Please enter an employee name, keep in mind that the names are NOT case-sensitive");
+            return;
+        }
+        navigate("/" + employeeName.toLowerCase());
     }
 
     const logOut = async () => {
@@ -36,7 +42,6 @@ function AdminAccount({firebase}) {
         }
     }
 
-
     return(
         <section className={styles.accountContainer}>
             <p className={styles.companyName}>Xtra-ordinary Company</p>
@@ -46,10 +51,11 @@ function AdminAccount({firebase}) {
             <p className={styles.desc}>
                 Please enter the name of the employee that you 
                 would like to update info for. For a complete list of employee names, 
-                please view this <a className={styles.pdfLink} target="_blank" href={"https://drive.google.com/file/d/1jDzXl1F-wiVG-OR7hU3vdSTkEkKk5gCC/view?usp=sharing"}>link</a>
+                please view this 
+                <a className={styles.pdfLink} target="_blank" href={"https://drive.google.com/file/d/1jDzXl1F-wiVG-OR7hU3vdSTkEkKk5gCC/view?usp=sharing"}> database link</a>
             </p>
             <Stack spacing={2}>
-                <TextField id="outlined-basic" label="Employee Name" variant="outlined" className={styles.input} />
+                <TextField id="outlined-basic" label="Employee Name" variant="outlined" inputProps={{'className' : styles.input}}/>
                 <Button variant="contained" onClick={submit}>Search</Button>  
                 <Button variant="contained" onClick={logOut}>Log Out</Button>                 
             </Stack>
