@@ -15,7 +15,7 @@ function BecomeAdmin({firebase}) {
     const [password, setPassword] = useState(""); 
     const [username, setUsername] = useState("");  
     const [loading, setLoading] = useState(false);   
-    let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6;
+    let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6 || loading;
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -35,15 +35,13 @@ function BecomeAdmin({firebase}) {
 
     const register = async () => {
         try {
+            setLoading(true);
             if(username == "") throw "name is empty";
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password);        //this function automatically logs you in
             updateProfile(auth.currentUser, {
                 displayName: username
             })      
-            alert("Please verify your email, your account has been created but you will not be able to use it until you verify your email");
-            navigate("/");
-            await sendEmailVerification(userCredentials.user);    
-            await signOut(auth);                                       
+            setLoading(false);                                      
         }
         catch(error){
             if(error.message == "Firebase: Error (auth/email-already-in-use).")
@@ -55,8 +53,13 @@ function BecomeAdmin({firebase}) {
             else
                 alert(error.message);
         }
+        finally{
+            alert("Account has been created, please verify your email");
+            navigate("/");
+            await sendEmailVerification(userCredentials.user);    
+            await signOut(auth); 
+        }
     }
-
 
     return(
         <section className={styles.registerContainer}>
@@ -76,11 +79,9 @@ function BecomeAdmin({firebase}) {
             </Stack>
             <Stack spacing={2}>
                 <Box className={styles.loadingButton}>
-                    {/* this is where i left off, trying to center the progress circle in the button*/}
                     <Button disabled={disable} variant="contained" onClick={register} sx={{width: '100%'}}>Register</Button>         
-                    <CircularProgress size={24} sx={{position: 'absolute', left: 0, right: 0, top: '5px',margin: 'auto'}}/>               
+                    {loading && <CircularProgress size={24} sx={{position: 'absolute', left: 0, right: 0, top: '5px', margin: 'auto'}}/>}               
                 </Box>
-             
                 <Button variant="contained" onClick={goBack}>Go Back</Button>                  
             </Stack>
         </section>

@@ -12,15 +12,12 @@ function AdminAccount({firebase}) {
     const {auth} = useContext(firebase);
     const [user, setUser] = useState("");
     
-    //usually triggers when the user logs in or logs out, 
-    //but can be used when the user refreshes the page to make sure
-    //the auth variable remains consistent
-    onAuthStateChanged(auth, (currentUser) => {
-        if(currentUser != null)
-            setUser(currentUser.displayName);
-        else
-            setUser("");                  
-    })
+    //this is causing another app crash
+    
+    //onAuthStateChanged(auth, (currentUser) => {
+        //if(currentUser != null)
+            //setUser(currentUser.displayName);                
+    //})
 
     const submit = () => {
         const employeeName = document.querySelector("." + styles.input).value;
