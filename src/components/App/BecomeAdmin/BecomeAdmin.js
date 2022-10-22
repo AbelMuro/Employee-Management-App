@@ -52,11 +52,11 @@ function BecomeAdmin({firebase}) {
                 catch(err){
                     setLoading(false);       
                     if(err.message == "Firebase: Error (auth/email-already-in-use).")
-                        setTimeout(() => {alert("Email is already registered")}, 300);   
+                        setTimeout(() => {alert("Email is already registered")}, 300);                  //this will make the call to alert() happen AFTER the re-render  
                     else if(err.message == "Firebase: Error (auth/invalid-email).")
-                        setTimeout(() => {alert("Please enter a valid email")}, 300); 
+                        setTimeout(() => {alert("Please enter a valid email")}, 300);                   //this will make the call to alert() happen AFTER the re-render  
                     else
-                        setTimeout(() => {alert("Please enter a username")}, 300)
+                        setTimeout(() => {alert("Please enter a username")}, 300)                       //this will make the call to alert() happen AFTER the re-render  
                 }
             }
         }) ();
