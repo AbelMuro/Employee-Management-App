@@ -15,7 +15,6 @@ function BecomeAdmin({firebase}) {
     const [password, setPassword] = useState(""); 
     const [username, setUsername] = useState("");  
     const [loading, setLoading] = useState(false);   
-    console.log(loading);
     let error = useRef(null);
     let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6 || loading != false;
 
@@ -37,35 +36,30 @@ function BecomeAdmin({firebase}) {
 
 
     useEffect(() => {
-        async function register () {
+        (async function register () {
             if(loading){
                 try {
                     if(username == "") throw "name is empty";
-                    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);        //this function automatically logs you in
+                    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);                //this function automatically logs you in
                     updateProfile(auth.currentUser, {
                         displayName: username
                     })   
-                    await sendEmailVerification(userCredentials.user);                                          //sending verification code
+                    await sendEmailVerification(userCredentials.user);                                                  //sending verification code
                     await signOut(auth);     
-                    setLoading("");                                                                             //loading has stopped                                                                    //signing ou                                                              
+                    setLoading(false);                                                                                  //loading has stopped   
+                    setTimeout(() => {alert("Account has been created, please verify your email"), navigate('/')}, 300); //this will make the call to alert() happen AFTER the re-render     
                 } 
                 catch(err){
-                    if(err.message != null)
-                        error = err.message
+                    setLoading(false);       
+                    if(err.message == "Firebase: Error (auth/email-already-in-use).")
+                        setTimeout(() => {alert("Email is already registered")}, 300);   
+                    else if(err.message == "Firebase: Error (auth/invalid-email).")
+                        setTimeout(() => {alert("Please enter a valid email")}, 300); 
                     else
-                        error = err;
-                    setLoading(null);
+                        setTimeout(() => {alert("Please enter a username")}, 300)
                 }
             }
-        }
-        register();
-    })
-
-    useEffect(() => {
-        if(loading === ""){
-            setTimeout(() => {alert("Account has been created, please verify your email")}, 0);            
-            navigate("/");
-        }
+        }) ();
     })
 
     return(
