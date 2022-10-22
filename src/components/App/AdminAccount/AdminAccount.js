@@ -12,12 +12,10 @@ function AdminAccount({firebase}) {
     const {auth} = useContext(firebase);
     const [user, setUser] = useState("");
     
-    //this is causing another app crash
-    
-    //onAuthStateChanged(auth, (currentUser) => {
-        //if(currentUser != null)
-            //setUser(currentUser.displayName);                
-    //})
+    onAuthStateChanged(auth, (currentUser) => {
+        if(currentUser != null)
+            setUser(currentUser.displayName);                
+    })
 
     const submit = () => {
         const employeeName = document.querySelector("." + styles.input).value;
