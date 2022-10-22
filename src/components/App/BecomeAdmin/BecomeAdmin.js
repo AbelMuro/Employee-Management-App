@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import styles from './styles.module.css';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -15,7 +15,9 @@ function BecomeAdmin({firebase}) {
     const [password, setPassword] = useState(""); 
     const [username, setUsername] = useState("");  
     const [loading, setLoading] = useState(false);   
-    let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6 || loading;
+    console.log(loading);
+    let error = useRef(null);
+    let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6 || loading != false;
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -33,33 +35,38 @@ function BecomeAdmin({firebase}) {
         navigate("/");
     }
 
-    const register = async () => {
-        try {
-            setLoading(true);
-            if(username == "") throw "name is empty";
-            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);        //this function automatically logs you in
-            updateProfile(auth.currentUser, {
-                displayName: username
-            })      
-            setLoading(false);                                      
+
+    useEffect(() => {
+        async function register () {
+            if(loading){
+                try {
+                    if(username == "") throw "name is empty";
+                    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);        //this function automatically logs you in
+                    updateProfile(auth.currentUser, {
+                        displayName: username
+                    })   
+                    await sendEmailVerification(userCredentials.user);                                          //sending verification code
+                    await signOut(auth);     
+                    setLoading("");                         //loading has stopped                                                                    //signing ou                                                              
+                } 
+                catch(err){
+                    if(err.message != null)
+                        error = err.message
+                    else
+                        error = err;
+                    setLoading(null);
+                }
+            }
         }
-        catch(error){
-            if(error.message == "Firebase: Error (auth/email-already-in-use).")
-                alert("An account is already registered with that email");
-            else if(error.message == "Firebase: Error (auth/invalid-email).")
-                alert("Please enter a valid email address")
-            else if(error == "name is empty")
-                alert("Please enter your user name")
-            else
-                alert(error.message);
-        }
-        finally{
+        register();
+    })
+
+    useEffect(() => {
+        if(loading === ""){
             alert("Account has been created, please verify your email");
-            navigate("/");
-            await sendEmailVerification(userCredentials.user);    
-            await signOut(auth); 
+            //navigate("/");
         }
-    }
+    })
 
     return(
         <section className={styles.registerContainer}>
@@ -79,7 +86,7 @@ function BecomeAdmin({firebase}) {
             </Stack>
             <Stack spacing={2}>
                 <Box className={styles.loadingButton}>
-                    <Button disabled={disable} variant="contained" onClick={register} sx={{width: '100%'}}>Register</Button>         
+                    <Button disabled={disable} variant="contained" onClick={() => {setLoading(true)}} sx={{width: '100%'}}>Register</Button>         
                     {loading && <CircularProgress size={24} sx={{position: 'absolute', left: 0, right: 0, top: '5px', margin: 'auto'}}/>}               
                 </Box>
                 <Button variant="contained" onClick={goBack}>Go Back</Button>                  

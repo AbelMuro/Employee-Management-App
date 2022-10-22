@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword , onAuthStateChanged, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
 
 
-//TODO: must work on the responsiveness of these components
 function LogInPage({firebase}){
     const {auth} = useContext(firebase);
     const [email, setEmail] = useState('');
