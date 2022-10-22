@@ -1,10 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styles from './styles.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword , onAuthStateChanged, isSignInWithEmailLink, signInWithEmailLink} from 'firebase/auth';
+import { signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
 
 
 function LogInPage({firebase}){
@@ -12,10 +12,6 @@ function LogInPage({firebase}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
-    //const loginWithEmailLink = () => {
-        //navigate("/loginwithemaillink");
-    //}
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
@@ -30,8 +26,7 @@ function LogInPage({firebase}){
     }
 
 
-    //logging in with email and password, and checking to see if 
-    //the email/passwords are valid
+    //logging in with email and password, and checking to see if the email/passwords are valid
     const loginEmailPassword = async () => {
         try{
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
@@ -46,26 +41,10 @@ function LogInPage({firebase}){
         }
     }
 
-    //checking to see if the user logged in through an email link
-    //useEffect(() => {
-       //const saved_email = localStorage.getItem("emailLinkForSignIn");
-        //if(isSignInWithEmailLink(auth, window.location.href) && saved_email){
-            //signInWithEmailLink(auth, saved_email, window.location.href)
-            //.then(() => {
-                //localStorage.removeItem("emailLinkForSignIn");
-                //navigate("/adminaccount");
-            //})
-       // }      
-    //},[])
-
-    //if the user has already logged in before, but hasn't logged out
-    //they will automatically be logged in and be redirected to the account page
     onAuthStateChanged(auth, (currentUser) => {
         if(currentUser == null) return;
-        if(!currentUser.emailVerified) return;
         navigate("/adminaccount");
     })
-
 
     return(
         <section>

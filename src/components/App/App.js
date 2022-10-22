@@ -3,7 +3,7 @@ import LogInPage from './LogInPage';
 import Profile from './Profile';
 import BecomeAdmin from './BecomeAdmin';
 import AdminAccount from './AdminAccount';
-import LoginWithEmailLink from './LoginWithEmailLink';
+import EnlistNewEmployee from './EnlistNewEmployee';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {db, auth} from './firebase';
 import './styles.css'
@@ -18,7 +18,7 @@ function App(){
                     <Route path="/" element={<LogInPage firebase={Firebase}/>}/>
                     <Route path="/adminaccount" element={<AdminAccount firebase={Firebase}/>}/>
                     <Route path="/becomeadmin" element={<BecomeAdmin firebase={Firebase}/>}/>
-                    {/* <Route path="/loginwithemaillink" element={<LoginWithEmailLink firebase={Firebase}/>}/> */}
+                    <Route path="/enlistnewemployee" element={<EnlistNewEmployee/>}/>
                     <Route path="/:employeeName" element={<Profile firebase={Firebase}/>}/>
                 </Routes>
             </BrowserRouter>            

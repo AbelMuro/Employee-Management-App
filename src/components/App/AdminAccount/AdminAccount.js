@@ -3,19 +3,14 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import styles from './styles.module.css';
-import {onAuthStateChanged} from 'firebase/auth';
+import {onAuthStateChanged, signOut} from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
-import {signOut} from 'firebase/auth'
 
 function AdminAccount({firebase}) {
     const navigate = useNavigate();
     const {auth} = useContext(firebase);
     const [user, setUser] = useState("");
     
-    onAuthStateChanged(auth, (currentUser) => {
-        if(currentUser != null)
-            setUser(currentUser.displayName);                
-    })
 
     const submit = () => {
         const employeeName = document.querySelector("." + styles.input).value;
@@ -37,6 +32,15 @@ function AdminAccount({firebase}) {
         }
     }
 
+    const enlistNewEmployee = () => {
+        navigate("/enlistnewemployee");
+    }
+
+    onAuthStateChanged(auth, (currentUser) => {
+        if(currentUser != null)
+            setUser(currentUser.displayName);                
+    })
+
     return(
         <section className={styles.accountContainer}>
             <p className={styles.companyName}>Xtra-ordinary Company</p>
@@ -51,7 +55,8 @@ function AdminAccount({firebase}) {
             </p>
             <Stack spacing={2}>
                 <TextField id="outlined-basic" label="Employee Name" variant="outlined" inputProps={{'className' : styles.input}}/>
-                <Button variant="contained" onClick={submit}>Search</Button>  
+                <Button variant="contained" onClick={submit}>Search</Button>
+                <Button variant="contained" onClick={enlistNewEmployee}>Enlist New Employee</Button>    
                 <Button variant="contained" onClick={logOut}>Log Out</Button>                 
             </Stack>
 

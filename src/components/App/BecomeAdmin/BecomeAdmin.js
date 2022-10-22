@@ -15,7 +15,6 @@ function BecomeAdmin({firebase}) {
     const [password, setPassword] = useState(""); 
     const [username, setUsername] = useState("");  
     const [loading, setLoading] = useState(false);   
-    let error = useRef(null);
     let disable = password.match(/[a-zA-Z]/g) == null || password.match(/\W+/g) == null || password.match(/\d+/g) == null || password.length < 6 || loading != false;
 
     const handleEmail = (e) => {

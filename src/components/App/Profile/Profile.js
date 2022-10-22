@@ -4,7 +4,7 @@ import BasicInfo from './BasicInfo';
 import Projects from './Projects';
 import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
-import { ref, onValue} from 'firebase/database';
+import { ref, onValue, set, push} from 'firebase/database';
 import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,7 +15,6 @@ function Profile({firebase}){
     const {employeeName} = useParams();
     let employeeNode = useRef();
     const [employeeData, setEmployeeData] = useState(null);
-
 
     const goBack = () => {
         navigate(-1);
@@ -32,8 +31,8 @@ function Profile({firebase}){
                 let nameInDatabase = currentNode.name.toLowerCase(); 
                 if(nameInDatabase == employeeName) {
                     employeeNode.current = node;                    
-                    setEmployeeData(data[node]);
                     nodeExists = true;
+                    setEmployeeData(data[node]);   
                 }
             }
             if(!nodeExists) {
