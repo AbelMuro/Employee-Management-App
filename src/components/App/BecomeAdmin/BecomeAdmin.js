@@ -47,7 +47,7 @@ function BecomeAdmin({firebase}) {
                     })   
                     await sendEmailVerification(userCredentials.user);                                          //sending verification code
                     await signOut(auth);     
-                    setLoading("");                         //loading has stopped                                                                    //signing ou                                                              
+                    setLoading("");                                                                             //loading has stopped                                                                    //signing ou                                                              
                 } 
                 catch(err){
                     if(err.message != null)
@@ -63,8 +63,8 @@ function BecomeAdmin({firebase}) {
 
     useEffect(() => {
         if(loading === ""){
-            alert("Account has been created, please verify your email");
-            //navigate("/");
+            setTimeout(() => {alert("Account has been created, please verify your email")}, 0);            
+            navigate("/");
         }
     })
 
