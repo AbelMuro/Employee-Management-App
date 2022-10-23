@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
+import {ref} from "firebase/storage";
 
-//TODO: find more info about e.target.files
-function UploadFiles() {
+//TODO: learn more about firestorage
+function UploadFiles({firebase}) {
+    const {storage} = useContext(firebase);
     const [,forceRender] = useState(1);
+
+    //const storageRef = ref(storage);
+    //const imagesRef = ref(storage, "images");
+    //const spaceRef = ref(storage, "images/space.jpg");
+    //spaceRef.fullPath;
+    //spaceRef.name;
+    //spaceRef.bucket;
 
     const handleFiles = (e) => {
         console.log(e.target.files)

@@ -7,7 +7,8 @@ import Stack from '@mui/material/Stack';
 import UploadFiles from './UploadFiles';
 
 
-function EnlistNewEmployee() {
+function EnlistNewEmployee({firebase}) {
+
     return(
         <section className={styles.container}>
             <p className={styles.companyName}>
@@ -44,7 +45,7 @@ function EnlistNewEmployee() {
                 <TextField id="outlined-basic" label={"Enter Task Four"} inputProps={{'data-id': 'task four' }} variant="outlined" />
                 <TextField id="outlined-basic" label={"Enter Department"} inputProps={{'data-id': 'department' }} variant="outlined" />
             </Box>
-            <UploadFiles/>
+            <UploadFiles firebase={firebase}/>
 
             <Stack spacing={2}>
                 <Button variant={"contained"}>Enlist New Employee</Button>
