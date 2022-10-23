@@ -1,0 +1,17 @@
+.uploadContainer{
+    margin: 30px 0px;
+}
+
+.filesUploaded{
+    color: initial;
+}
+
+.fileNames{
+    font-family: "Roboto";
+}
+
+.uploadTitle{
+    font-family: "Roboto";
+    text-align: center;
+    margin: 30px 0px;
+}

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
@@ -7,7 +7,7 @@ import {ref} from "firebase/storage";
 //TODO: learn more about firestorage
 function UploadFiles({firebase}) {
     const {storage} = useContext(firebase);
-    const [,forceRender] = useState(1);
+    const [files, setFiles] = useState([]);
 
     //const storageRef = ref(storage);
     //const imagesRef = ref(storage, "images");
@@ -17,19 +17,37 @@ function UploadFiles({firebase}) {
     //spaceRef.bucket;
 
     const handleFiles = (e) => {
-        console.log(e.target.files)
+        setFiles(e.target.files);
     }
+
+    useEffect(() => {
+        let filesUploaded = document.querySelector("." + styles.filesUploaded);
+        for(let file = 0; file < files.length; file++){
+            let fileElement = document.createElement("p");
+            fileElement.setAttribute("class", styles.fileNames)
+            fileElement.innerHTML = files[file].name;
+            filesUploaded.appendChild(fileElement);
+        }
+    })
 
 
     return(            
         <Box className={styles.uploadContainer}>
-            <p className={styles.uploadDesc}>
-                Upload the photos of the manager and the coworkers
-            </p>
-            <Button variant={"contained"} component="label">
+            <hr/>
+            <h2 className={styles.uploadTitle}>
+                Upload the photos/images of the employee, <br/>
+                their manager and their coworkers. <br/>
+                Please upload the photos in the following order <br/>
+                First employee, then manager, then the coworkers 
+            </h2>                
+            <div className={styles.filesUploaded}>
+
+            </div>
+            <Button variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
                 Upload
-                <input type="file" accept="image/*" multiple hidden onClick={handleFiles}/>
-            </Button>
+                <input type="file" accept="image/*" multiple hidden onChange={handleFiles} data-id="ignore"/>
+            </Button>  
+            <hr/>           
         </Box>
     )
 }

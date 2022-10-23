@@ -9,6 +9,10 @@
     gap: 40px;
 }
 
+.gridItem{
+    grid-column: 1/4;
+}
+
 .companyName, .title, .desc{
     font-family: "Roboto";
 }
