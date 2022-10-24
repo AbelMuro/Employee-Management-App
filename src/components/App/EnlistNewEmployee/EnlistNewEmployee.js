@@ -34,19 +34,25 @@ function EnlistNewEmployee({firebase}) {;
 
     //i got all the values from the inputs and placed them inside an object
     const handleSubmit = (e) => { 
-        if(!addressIsValid)  {e.preventDefault(); return}
+        //if(!addressIsValid)  {e.preventDefault(); return}
         e.preventDefault()
-        let newNode = {}
+        let newNode = {};
+        let fileImages;
+
+        //http://dummyimage.com/100x100.png/dddddd/000000
 
         const allInputs = Array.from(document.querySelectorAll("input"));
         allInputs.forEach((input) => {
-            if(input.getAttribute("data-id") != "ignore"){
+            if(input.getAttribute("data-id") != "files"){
                 const property = input.getAttribute("data-id");
                 const value = input.value;
                 newNode[property] = value;                
             }
+            else
+                fileImages = input.files;
         })
-        console.log(newNode);
+
+        console.log(fileImages);
     
     }   
 

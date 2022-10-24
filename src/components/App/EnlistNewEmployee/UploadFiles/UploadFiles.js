@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
@@ -8,6 +8,7 @@ import {ref} from "firebase/storage";
 function UploadFiles({firebase}) {
     const {storage} = useContext(firebase);
     const [files, setFiles] = useState([]);
+    const fileNames = useRef([]);
 
     //const storageRef = ref(storage);
     //const imagesRef = ref(storage, "images");
@@ -17,15 +18,17 @@ function UploadFiles({firebase}) {
     //spaceRef.bucket;
 
     const handleFiles = (e) => {
-        setFiles(e.target.files);
+        setFiles((previousFile) => {
+            return [...previousFile, e.target.files];
+        });
     }
 
     useEffect(() => {
         let filesUploaded = document.querySelector("." + styles.filesUploaded);
-        for(let file = 0; file < files.length; file++){
-            let fileElement = document.createElement("p");
+        for(let file = 0; file < fileNames.length; file++){
+            //let fileElement = document.createElement("p");
             fileElement.setAttribute("class", styles.fileNames)
-            fileElement.innerHTML = files[file].name;
+            fileElement.innerHTML = fileNames.current[file].name;
             filesUploaded.appendChild(fileElement);
         }
     })
@@ -45,7 +48,7 @@ function UploadFiles({firebase}) {
             </div>
             <Button variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
                 Upload
-                <input type="file" accept="image/*" multiple hidden onChange={handleFiles} data-id="ignore"/>
+                <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files" required/>
             </Button>  
             <hr/>           
         </Box>
