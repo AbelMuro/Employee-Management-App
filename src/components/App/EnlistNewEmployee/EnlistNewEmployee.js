@@ -44,7 +44,14 @@ function EnlistNewEmployee({firebase}) {;
         let newNode = {};
         let fileImages;
 
+        //storing all the files uploaded by the user into the firebase storage
+        files.forEach((file) => {
+            const employeeBucket = ref(storage, "/harry potter/" + file.name);
+            uploadBytes(employeeBucket, file);            
+        })
+
         //http://dummyimage.com/100x100.png/dddddd/000000
+        //storing all the values inputed by the user into an object
         const allInputs = Array.from(document.querySelectorAll("input"));
         allInputs.forEach((input) => {
             if(input.getAttribute("data-id") != "files"){
@@ -59,12 +66,7 @@ function EnlistNewEmployee({firebase}) {;
     }   
 
     const handleClick = async () => {   
-        let geocoder = new google.maps.Geocoder();
-
-        //TODO: trying to upload images to storage
-        const employeeBucket = ref(storage, "/" + `${name}` + "/images");
-        await uploadBytes(employeeBucket, files);
-  
+        let geocoder = new google.maps.Geocoder();    
         let status;
         try{
             await geocoder.geocode({address: address}, (results, stat) => {
@@ -81,8 +83,6 @@ function EnlistNewEmployee({firebase}) {;
             addressIsValid = false;
             alert("Please enter a valid address")
         }
-
-
     }
 
     
