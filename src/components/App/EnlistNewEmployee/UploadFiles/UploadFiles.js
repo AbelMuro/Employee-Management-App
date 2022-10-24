@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
@@ -8,7 +8,6 @@ import {ref} from "firebase/storage";
 function UploadFiles({firebase}) {
     const {storage} = useContext(firebase);
     const [files, setFiles] = useState([]);
-    const fileNames = useRef([]);
 
     //const storageRef = ref(storage);
     //const imagesRef = ref(storage, "images");
@@ -19,18 +18,19 @@ function UploadFiles({firebase}) {
 
     const handleFiles = (e) => {
         setFiles((previousFile) => {
-            return [...previousFile, e.target.files];
-        });
+            return [...previousFile, ...e.target.files];
+        });            
     }
 
     useEffect(() => {
         let filesUploaded = document.querySelector("." + styles.filesUploaded);
-        for(let file = 0; file < fileNames.length; file++){
-            //let fileElement = document.createElement("p");
-            fileElement.setAttribute("class", styles.fileNames)
-            fileElement.innerHTML = fileNames.current[file].name;
-            filesUploaded.appendChild(fileElement);
+        let allNames = "";
+        for(let file = 0; file < files.length; file++){
+            allNames += files[file].name;
+            allNames += "<br/>"   
         }
+        filesUploaded.innerHTML = allNames;
+        console.log(files);
     })
 
 
