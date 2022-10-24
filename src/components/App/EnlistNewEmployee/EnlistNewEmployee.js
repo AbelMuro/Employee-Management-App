@@ -7,17 +7,24 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import UploadFiles from './UploadFiles';
 import {useLoadScript} from '@react-google-maps/api';
+import {ref, uploadBytes} from "firebase/storage";
 
 
 function EnlistNewEmployee({firebase}) {;
-    const {db} = useContext(firebase);
+    const {db, storage} = useContext(firebase);
+    const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("");
+    const [files, setFiles] = useState([]);
     let addressIsValid = useRef();
 
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: process.env.GOOGLE_MAP_KEY
     })
+
+    const handleName = (e) => {
+        setName(e.target.value);
+    }
 
     const handleGender = (e) => {
         setGender(e.target.value);
@@ -32,15 +39,12 @@ function EnlistNewEmployee({firebase}) {;
         allFields.forEach((field) => {field.value = ""})
     }
 
-    //i got all the values from the inputs and placed them inside an object
     const handleSubmit = (e) => { 
-        //if(!addressIsValid)  {e.preventDefault(); return}
-        e.preventDefault()
+        if(!addressIsValid)  {e.preventDefault(); return}
         let newNode = {};
         let fileImages;
 
         //http://dummyimage.com/100x100.png/dddddd/000000
-
         const allInputs = Array.from(document.querySelectorAll("input"));
         allInputs.forEach((input) => {
             if(input.getAttribute("data-id") != "files"){
@@ -52,13 +56,15 @@ function EnlistNewEmployee({firebase}) {;
                 fileImages = input.files;
         })
 
-        console.log(fileImages);
-    
     }   
 
-    const handleClick = async () => {
-        const google = window.google;    
+    const handleClick = async () => {   
         let geocoder = new google.maps.Geocoder();
+
+        //TODO: trying to upload images to storage
+        const employeeBucket = ref(storage, "/" + `${name}` + "/images");
+        await uploadBytes(employeeBucket, files);
+  
         let status;
         try{
             await geocoder.geocode({address: address}, (results, stat) => {
@@ -66,13 +72,20 @@ function EnlistNewEmployee({firebase}) {;
             })
             if(status == "OK")
                 addressIsValid = true;
-            else
+            else{
                 addressIsValid = false;
+                alert("Please enter a valid address")
+            }                
         }
         catch(error){
             addressIsValid = false;
+            alert("Please enter a valid address")
         }
+
+
     }
+
+    
 
 
     return(
@@ -89,7 +102,7 @@ function EnlistNewEmployee({firebase}) {;
             </p>
             <form onSubmit={handleSubmit} id="inputs">
                 <Box className={styles.gridContainer}>
-                    <TextField id="outlined-basic" label={"Enter Full Name"} inputProps={{"data-id": "name"}}variant="outlined" required/>
+                    <TextField id="outlined-basic" label={"Enter Full Name"} value={name} onChange={handleName} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter 6 Digit Employee ID"} inputProps={{pattern: "[0-9]{6}", "data-id" : "employee id"}} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter Email"} inputProps={{pattern: "[^@\s]+@[^@\s]+\.[^@\s]+", type: "email", "data-id": "email"}} variant="outlined" required/>          
                     <TextField id="outlined-select" select label="Select Gender" inputProps={{"data-id" : "gender"}} value={gender} onChange={handleGender} required>
@@ -125,7 +138,7 @@ function EnlistNewEmployee({firebase}) {;
                     <TextField id="outlined-multiline-static" label={"Enter Task Three"} inputProps={{"data-id" : "task three"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
                     <TextField id="outlined-multiline-static" label={"Enter Task Four"} inputProps={{"data-id" : "task four"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
                 </Box>            
-                <UploadFiles firebase={firebase}/>
+                <UploadFiles files={files} setFiles={setFiles}/>
                 <Stack spacing={2}>
                     <Button variant={"contained"} type="submit" onClick={handleClick}>Enlist New Employee</Button>
                     <Button variant={"contained"} onClick={resetFields}>Clear Fields</Button>

@@ -1,17 +1,16 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {memo, useContext, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
-import {ref} from "firebase/storage";
 
-//TODO: learn more about firestorage
-function UploadFiles({firebase}) {
-    const {storage} = useContext(firebase);
-    const [files, setFiles] = useState([]);
+function UploadFiles({files, setFiles}) {
+
 
     //const storageRef = ref(storage);
     //const imagesRef = ref(storage, "images");
     //const spaceRef = ref(storage, "images/space.jpg");
+    //const newImageRef = ref(storage, "some-child");
+    //uploadBytes(newImageRef, file).then((snapshot) => {console.log("file has been uploaded")})
     //spaceRef.fullPath;
     //spaceRef.name;
     //spaceRef.bucket;
@@ -25,12 +24,12 @@ function UploadFiles({firebase}) {
     useEffect(() => {
         let filesUploaded = document.querySelector("." + styles.filesUploaded);
         let allNames = "";
+
         for(let file = 0; file < files.length; file++){
             allNames += files[file].name;
-            allNames += "<br/>"   
+            allNames += "<br/>";   
         }
         filesUploaded.innerHTML = allNames;
-        console.log(files);
     })
 
 
@@ -46,13 +45,13 @@ function UploadFiles({firebase}) {
             <div className={styles.filesUploaded}>
 
             </div>
-            <Button variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
-                Upload
-                <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files" required/>
-            </Button>  
+                <Button variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
+                    Upload
+                    <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files" required/>
+                </Button> 
             <hr/>           
         </Box>
     )
 }
 
-export default UploadFiles;
+export default memo(UploadFiles);
