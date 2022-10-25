@@ -54,6 +54,7 @@ function EnlistNewEmployee({firebase}) {;
         const referenceToNode = push(referenceToDB);
 
         //storing all the files uploaded by the user into the firebase storage
+        //the storage will be used later to retrieve images for the employee
         files.forEach((file, index) => {
             const currentImageDesc = imageDesc[index];
             newNode[currentImageDesc] = file.name;
@@ -71,6 +72,7 @@ function EnlistNewEmployee({firebase}) {;
             }
         })
 
+        //storing the object into the database
         set(referenceToNode, newNode);
     }   
 
