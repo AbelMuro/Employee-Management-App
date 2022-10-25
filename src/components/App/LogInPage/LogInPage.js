@@ -56,7 +56,9 @@ function LogInPage({firebase}){
                 <p className={styles.desc}>
                     This App will search through a database of employees of
                     some random company and will then display info about the employee.
-                    But first, you must be an admin to view and make changes to the database.
+                    Keep in mind that I'm using firebase realtime database. Anyone can 
+                    make changes to the database as they see fit. But first, you must be an 
+                    admin to view and make changes to the database.
                     Login with your email and password.
                 </p>
                 <Stack spacing={2}>
@@ -64,17 +66,13 @@ function LogInPage({firebase}){
                     <TextField id="outlined-basic" label="Enter Password" variant="outlined" type='password' value={password} onChange={handlePassword}/>  
                 </Stack>
                 <Stack spacing={2}>
-                    <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>  
-                    {/*<Button variant="contained" className={styles.button} onClick={loginWithEmailLink}>Login with email link</Button> */}                    
+                    <Button variant="contained" className={styles.button} onClick={loginEmailPassword}>Login</Button>                     
                 </Stack>
 
                 <a className={styles.becomeAdminToday} onClick={createAdmin}>
                     Not an admin? Become one today!
                 </a>                  
-        
             </div>
-
-
         </section>
     )
 }

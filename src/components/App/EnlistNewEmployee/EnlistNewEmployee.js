@@ -1,4 +1,4 @@
-import React, {useState, useRef, useContext} from 'react';
+import React, {useState, useRef, useContext, useEffect} from 'react';
 import styles from './styles.module.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -7,8 +7,9 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import UploadFiles from './UploadFiles';
 import {useLoadScript} from '@react-google-maps/api';
-import {ref as refSB, uploadBytes, getDownloadURL} from "firebase/storage";
+import {ref as refSB, uploadBytes} from "firebase/storage";
 import {ref as refDB, set, push} from 'firebase/database';
+import {useNavigate} from 'react-router-dom';
 
 function EnlistNewEmployee({firebase}) {;
     const {db, storage} = useContext(firebase);
@@ -16,6 +17,7 @@ function EnlistNewEmployee({firebase}) {;
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("");
     const [files, setFiles] = useState([]);
+    const navigate = useNavigate();
     let addressIsValid = useRef();
 
     const {isLoaded} = useLoadScript({
@@ -34,6 +36,10 @@ function EnlistNewEmployee({firebase}) {;
         setAddress(e.target.value);
     }
 
+    const goBack = () => {
+        navigate("/adminaccount");
+    }
+
     const resetFields = () => {
         let allFields = Array.from(document.querySelectorAll("input"));
         allFields.forEach((field) => {field.value = ""})
@@ -49,8 +55,11 @@ function EnlistNewEmployee({firebase}) {;
                           "coworker two image": "http://dummyimage.com/100x100.png/dddddd/000000",
                           "coworker three image": "http://dummyimage.com/100x100.png/dddddd/000000",
                           "coworker four image": "http://dummyimage.com/100x100.png/dddddd/000000",
-                          "coworker five image" : "http://dummyimage.com/100x100.png/dddddd/000000"};
-        const imageDesc = ["self image", "manager image" ,"coworker one image", "coworker two image", "coworker three image", "coworker four image", "coworker five image"];
+                          "coworker five image" : "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "years employed": 0};
+        const imageDesc = ["self image", "manager image" ,"coworker one image", 
+                           "coworker two image", "coworker three image", 
+                           "coworker four image", "coworker five image"];
         const referenceToDB = refDB(db);
         const referenceToNode = push(referenceToDB);
 
@@ -65,11 +74,10 @@ function EnlistNewEmployee({firebase}) {;
 
         //storing all the values inputed by the user into an object
         const allInputs = Array.from(document.querySelectorAll("input"));
-        const allTextFields = Array.from(document.querySelectorAll("textarea"));
+        const allTextFields = Array.from(document.querySelectorAll("textarea[data-id]"));
         allInputs.push(...allTextFields);
         allInputs.forEach((input) => {
             if(input.getAttribute("data-id") != "files"){
-                console.log(input.getAttribute("data-id"))
                 const property = input.getAttribute("data-id");
                 const value = input.value;
                 newNode[property] = value;                
@@ -78,6 +86,8 @@ function EnlistNewEmployee({firebase}) {;
 
         //storing the object into the database
         set(referenceToNode, newNode);
+        alert("Employee has been registered");
+        navigate("/adminaccount");
     }   
 
     const handleClick = async () => {   
@@ -96,12 +106,9 @@ function EnlistNewEmployee({firebase}) {;
         }
         catch(error){
             addressIsValid = false;
-            alert("Please enter a valid address")
+            alert("Please enter a valid address");
         }
     }
-
-    
-
 
     return(
         <section className={styles.container}>
@@ -119,7 +126,7 @@ function EnlistNewEmployee({firebase}) {;
                 <Box className={styles.gridContainer}>
                     <TextField id="outlined-basic" label={"Enter Full Name"} inputProps={{"data-id" : "name"}} value={name} onChange={handleName} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter 6 Digit Employee ID"} inputProps={{pattern: "[0-9]{6}", "data-id" : "employee id"}} variant="outlined" required/>
-                    <TextField id="outlined-basic" label={"Enter Email"} inputProps={{pattern: "[^@\s]+@[^@\s]+\.[^@\s]+", type: "email", "data-id": "email"}} variant="outlined" required/>          
+                    <TextField id="outlined-basic" label={"Enter Email"} inputProps={{type: "email", "data-id": "email"}} variant="outlined" required/>          
                     <TextField id="outlined-select" select label="Select Gender" inputProps={{"data-id" : "gender"}} value={gender} onChange={handleGender} required>
                         <MenuItem value={"male"}>
                             male
@@ -157,6 +164,7 @@ function EnlistNewEmployee({firebase}) {;
                 <Stack spacing={2}>
                     <Button variant={"contained"} type="submit" onClick={handleClick}>Enlist New Employee</Button>
                     <Button variant={"contained"} onClick={resetFields}>Clear Fields</Button>
+                    <Button variant={"contained"} onClick={goBack}>Go Back</Button>
                 </Stack>                
             </form>
                 
