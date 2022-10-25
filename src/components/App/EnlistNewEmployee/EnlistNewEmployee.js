@@ -69,6 +69,7 @@ function EnlistNewEmployee({firebase}) {;
         allInputs.push(...allTextFields);
         allInputs.forEach((input) => {
             if(input.getAttribute("data-id") != "files"){
+                console.log(input.getAttribute("data-id"))
                 const property = input.getAttribute("data-id");
                 const value = input.value;
                 newNode[property] = value;                
@@ -146,7 +147,7 @@ function EnlistNewEmployee({firebase}) {;
                     <TextField id="outlined-basic" label={"Enter Coworker Name Five"} inputProps={{"data-id" : "coworker five"}}variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter Manager Name"} inputProps={{"data-id" : "manager"}} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter Department"} inputProps={{"data-id" : "department"}} variant="outlined" required/>
-                    <TextField id="outlined-multiline-static" label={"Enter Project Description"} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
+                    <TextField id="outlined-multiline-static" label={"Enter Project Description"} inputProps={{"data-id" : "current project"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
                     <TextField id="outlined-multiline-static" label={"Enter Task One"} inputProps={{"data-id" : "task one"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
                     <TextField id="outlined-multiline-static" label={"Enter Task Two"} inputProps={{"data-id" : "task two"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>
                     <TextField id="outlined-multiline-static" label={"Enter Task Three"} inputProps={{"data-id" : "task three"}} variant="outlined" multiline rows={4} className={styles.gridItem} required/>

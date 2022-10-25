@@ -42,10 +42,10 @@ function UploadFiles({files, setFiles}) {
                 First employee, then manager, then the coworkers 
             </h2>                
             <div className={styles.filesUploaded}></div>
-                <Button disabled={disable} variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
-                    Upload
-                    <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>
-                </Button> 
+            <Button disabled={disable} variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
+                Upload
+                <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>
+            </Button> 
             <hr/>           
         </Box>
     )
