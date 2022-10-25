@@ -20,6 +20,7 @@ function EnlistNewEmployee({firebase}) {;
     const navigate = useNavigate();
     let addressIsValid = useRef();
 
+    //loading google maps api only because i need the google object in the window object
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: process.env.GOOGLE_MAP_KEY
     })

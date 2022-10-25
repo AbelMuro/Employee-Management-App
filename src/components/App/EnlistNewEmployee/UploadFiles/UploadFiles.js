@@ -1,5 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
 
@@ -15,12 +16,19 @@ function UploadFiles({files, setFiles}) {
     //spaceRef.bucket;
 
     const handleFiles = (e) => {
+        const allFiles = Array.from(e.target.files);
         setFiles((previousFile) => {
             return [...previousFile, ...e.target.files];
         });            
     }
 
+    const resetFiles = () => {
+        setFiles([])
+
+    }
+
     useEffect(() => {
+        console.log(files);
         let filesUploaded = document.querySelector("." + styles.filesUploaded);
         let allNames = "";
 
@@ -42,10 +50,14 @@ function UploadFiles({files, setFiles}) {
                 First employee, then manager, then the coworkers 
             </h2>                
             <div className={styles.filesUploaded}></div>
-            <Button disabled={disable} variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
-                Upload
-                <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>
-            </Button> 
+            <Stack spacing={2} sx={{marginBottom: "30px"}}>
+                <Button disabled={disable} variant={"contained"} component="label">
+                    Upload
+                    <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>
+                </Button> 
+                <Button variant={"contained"} onClick={resetFiles}>Reset Files</Button>                
+            </Stack>
+
             <hr/>           
         </Box>
     )
