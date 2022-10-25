@@ -41,9 +41,7 @@ function UploadFiles({files, setFiles}) {
                 Please upload the photos in the following order <br/>
                 First employee, then manager, then the coworkers 
             </h2>                
-            <div className={styles.filesUploaded}>
-
-            </div>
+            <div className={styles.filesUploaded}></div>
                 <Button disabled={disable} variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
                     Upload
                     <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>

@@ -44,7 +44,6 @@ function BasicInfo(props){
        return url;
     }
 
-    //TODO: need to make more useEffects that get an image from the storage like the one below
     useEffect(() => {
         let selfImage = document.querySelector("." + styles.employeeImage)
         if(employeeData['self image'].includes("http")) 
@@ -169,8 +168,7 @@ function BasicInfo(props){
                                 <Button variant="contained" onClick={updateDatabase}>Submit</Button>    
                             </form>
                         </div>   
-                    </div>
-                        
+                    </div> 
                     )}
                 </Popup>
             </div> 

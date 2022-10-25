@@ -48,8 +48,9 @@ function EnlistNewEmployee({firebase}) {;
                           "coworker one image": "http://dummyimage.com/100x100.png/dddddd/000000",
                           "coworker two image": "http://dummyimage.com/100x100.png/dddddd/000000",
                           "coworker three image": "http://dummyimage.com/100x100.png/dddddd/000000",
-                          "coworker four image": "http://dummyimage.com/100x100.png/dddddd/000000"};
-        const imageDesc = ["self image", "manager image" ,"coworker one image", "coworker two image", "coworker three image", "coworker four image"];
+                          "coworker four image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "coworker five image" : "http://dummyimage.com/100x100.png/dddddd/000000"};
+        const imageDesc = ["self image", "manager image" ,"coworker one image", "coworker two image", "coworker three image", "coworker four image", "coworker five image"];
         const referenceToDB = refDB(db);
         const referenceToNode = push(referenceToDB);
 
@@ -64,6 +65,8 @@ function EnlistNewEmployee({firebase}) {;
 
         //storing all the values inputed by the user into an object
         const allInputs = Array.from(document.querySelectorAll("input"));
+        const allTextFields = Array.from(document.querySelectorAll("textarea"));
+        allInputs.push(...allTextFields);
         allInputs.forEach((input) => {
             if(input.getAttribute("data-id") != "files"){
                 const property = input.getAttribute("data-id");
