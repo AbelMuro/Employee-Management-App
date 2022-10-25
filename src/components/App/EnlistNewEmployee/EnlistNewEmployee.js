@@ -7,8 +7,8 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import UploadFiles from './UploadFiles';
 import {useLoadScript} from '@react-google-maps/api';
-import {ref, uploadBytes} from "firebase/storage";
-
+import {ref as refSB, uploadBytes, getDownloadURL} from "firebase/storage";
+import {ref as refDB, set, push} from 'firebase/database';
 
 function EnlistNewEmployee({firebase}) {;
     const {db, storage} = useContext(firebase);
@@ -40,17 +40,27 @@ function EnlistNewEmployee({firebase}) {;
     }
 
     const handleSubmit = (e) => { 
-        if(!addressIsValid)  {e.preventDefault(); return}
-        let newNode = {};
-        let fileImages;
+        e.preventDefault();       
+        if(!addressIsValid) return;
+        const newNode =  {"task one progress": 0, "task two progress": 0, "task three progress" : 0, "task four progress" : 0,
+                          "self image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "manager image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "coworker one image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "coworker two image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "coworker three image": "http://dummyimage.com/100x100.png/dddddd/000000",
+                          "coworker four image": "http://dummyimage.com/100x100.png/dddddd/000000"};
+        const imageDesc = ["self image", "manager image" ,"coworker one image", "coworker two image", "coworker three image", "coworker four image"];
+        const referenceToDB = refDB(db);
+        const referenceToNode = push(referenceToDB);
 
         //storing all the files uploaded by the user into the firebase storage
-        files.forEach((file) => {
-            const employeeBucket = ref(storage, "/harry potter/" + file.name);
-            uploadBytes(employeeBucket, file);            
+        files.forEach((file, index) => {
+            const currentImageDesc = imageDesc[index];
+            newNode[currentImageDesc] = file.name;
+            const employeeBucket = refSB(storage, "/" + name + "/" + file.name);
+            uploadBytes(employeeBucket, file)          
         })
 
-        //http://dummyimage.com/100x100.png/dddddd/000000
         //storing all the values inputed by the user into an object
         const allInputs = Array.from(document.querySelectorAll("input"));
         allInputs.forEach((input) => {
@@ -59,10 +69,9 @@ function EnlistNewEmployee({firebase}) {;
                 const value = input.value;
                 newNode[property] = value;                
             }
-            else
-                fileImages = input.files;
         })
 
+        set(referenceToNode, newNode);
     }   
 
     const handleClick = async () => {   
@@ -102,7 +111,7 @@ function EnlistNewEmployee({firebase}) {;
             </p>
             <form onSubmit={handleSubmit} id="inputs">
                 <Box className={styles.gridContainer}>
-                    <TextField id="outlined-basic" label={"Enter Full Name"} value={name} onChange={handleName} variant="outlined" required/>
+                    <TextField id="outlined-basic" label={"Enter Full Name"} inputProps={{"data-id" : "name"}} value={name} onChange={handleName} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter 6 Digit Employee ID"} inputProps={{pattern: "[0-9]{6}", "data-id" : "employee id"}} variant="outlined" required/>
                     <TextField id="outlined-basic" label={"Enter Email"} inputProps={{pattern: "[^@\s]+@[^@\s]+\.[^@\s]+", type: "email", "data-id": "email"}} variant="outlined" required/>          
                     <TextField id="outlined-select" select label="Select Gender" inputProps={{"data-id" : "gender"}} value={gender} onChange={handleGender} required>

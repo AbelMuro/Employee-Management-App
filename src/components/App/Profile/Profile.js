@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 function Profile({firebase}){
-    const {db} = useContext(firebase);
+    const {db, storage} = useContext(firebase);
     const navigate = useNavigate(); 
     const {employeeName} = useParams();
     let employeeNode = useRef();
@@ -49,9 +49,9 @@ function Profile({firebase}){
             <Box className={styles.goBack}>
                 <Button variant="contained" onClick={goBack}>Go Back</Button>   
             </Box>
-           <BasicInfo state={employeeData} node={employeeNode.current} database={db}/> 
-           <Projects state={employeeData} node={employeeNode.current} database={db}/> 
-           <Coworkers state={employeeData} node={employeeNode.current} database={db}/>
+           <BasicInfo state={employeeData} node={employeeNode.current} database={db} storage={storage}/> 
+           <Projects state={employeeData} node={employeeNode.current} database={db} storage={storage}/> 
+           <Coworkers state={employeeData} node={employeeNode.current} database={db} storage={storage}/>
         </section>
     )
 }

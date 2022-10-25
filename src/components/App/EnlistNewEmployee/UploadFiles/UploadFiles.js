@@ -1,11 +1,10 @@
-import React, {memo, useContext, useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import styles from './styles.module.css';
 
 function UploadFiles({files, setFiles}) {
-
-
+    let disable = files.length > 5;
     //const storageRef = ref(storage);
     //const imagesRef = ref(storage, "images");
     //const spaceRef = ref(storage, "images/space.jpg");
@@ -45,9 +44,9 @@ function UploadFiles({files, setFiles}) {
             <div className={styles.filesUploaded}>
 
             </div>
-                <Button variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
+                <Button disabled={disable} variant={"contained"} component="label" sx={{width: "100%", margin: "20px 0px"}}>
                     Upload
-                    <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files" required/>
+                    <input type="file" accept="image/*" multiple="multiple" hidden onChange={handleFiles} data-id="files"/>
                 </Button> 
             <hr/>           
         </Box>

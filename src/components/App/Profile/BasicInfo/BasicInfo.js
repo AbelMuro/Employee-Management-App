@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './styles.module.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,11 +7,13 @@ import Popup from 'reactjs-popup';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faX} from '@fortawesome/free-solid-svg-icons'; 
 import { ref, set} from 'firebase/database';
+import {ref as refSB, getDownloadURL} from "firebase/storage";
 
 function BasicInfo(props){
     const [,forceRender] = useState(1);
     const employeeData = props.state; 
     const employeeNode = props.node;
+    const storage = props.storage;
     const db = props.database;
 
     const updateDatabase = () => {
@@ -36,10 +38,29 @@ function BasicInfo(props){
         }
     }
 
+    async function downloadFromStorage(imageTitle) {
+       const reference = refSB(storage, employeeData["name"] + "/" + employeeData[imageTitle]);
+       let url = await getDownloadURL(reference);
+       return url;
+    }
+
+    //TODO: need to make more useEffects that get an image from the storage like the one below
+    useEffect(() => {
+        let selfImage = document.querySelector("." + styles.employeeImage)
+        if(employeeData['self image'].includes("http")) 
+            selfImage.setAttribute("src", employeeData['self image']);
+        else{
+            downloadFromStorage("self image")
+            .then((url) => {
+                selfImage.setAttribute("src", url);
+            })
+        }
+    })
+
     return( 
         <>
             <div className={styles.basicInfo}>
-                <img className={styles.employeeImage} src={employeeData['self image']}/>
+                <img className={styles.employeeImage} src={""}/> 
                 <p className={styles.employeeName}>
                     {employeeData['name']}
                 </p>
