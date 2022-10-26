@@ -42,8 +42,8 @@ function LogInPage({firebase}){
     }
 
     onAuthStateChanged(auth, (currentUser) => {
-        if(currentUser == null) return;
-        navigate("/adminaccount");
+        if(currentUser) return;
+        //navigate("/adminaccount");
     })
 
     return(
