@@ -70,7 +70,7 @@ function EnlistNewEmployee({firebase}) {;
             const currentImageDesc = imageDesc[index];
             newNode[currentImageDesc] = file.name;
             const employeeBucket = refSB(storage, "/" + name + "/" + file.name);
-            uploadBytes(employeeBucket, file)          
+            uploadBytes(employeeBucket, file);          
         })
 
         //storing all the values inputed by the user into an object

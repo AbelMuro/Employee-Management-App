@@ -4,7 +4,7 @@ import BasicInfo from './BasicInfo';
 import Projects from './Projects';
 import Coworkers from './Coworkers';
 import LoadingScreen from './LoadingScreen';
-import { ref, onValue, set, push} from 'firebase/database';
+import { ref, onValue} from 'firebase/database';
 import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
