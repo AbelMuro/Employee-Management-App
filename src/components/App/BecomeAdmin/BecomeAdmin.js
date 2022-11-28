@@ -34,44 +34,36 @@ function BecomeAdmin({firebase}) {
         navigate("/");
     }
 
-
-    useEffect(() => {
-        (async function register () {
-            if(loading){
-                try {
-                    if(username == "") throw {message: "name is empty"};
-                    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);         //this function automatically logs you in
-                    updateProfile(auth.currentUser, {
-                        displayName: username
-                    })   
-                    await sendEmailVerification(userCredentials.user);                                           //sending verification code
-                    await signOut(auth)
-                    setLoading("");                                                                              //loading has stopped                                                                                            
-                } 
-                catch(err){
-                    error.current = err.message;   
-                    setLoading(null);     
-                }
-            }
-        }) ();
-    })
-
-    useEffect(() => {
-        if(loading === ""){
+    const handleSubmit = async() => {
+        try {
+            setLoading(true);
+            if(username == "") throw {message: "name is empty"};
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);         //this function automatically logs you in
+            updateProfile(auth.currentUser, {
+                displayName: username
+            })   
+            await sendEmailVerification(userCredentials.user);                                           //sending verification code
+            await signOut(auth)
+            setLoading(false);                                                                              //loading has stopped             
             setTimeout(() => {
-               alert("Account has been created, please verify your email");
-               navigate('/');
-            }, 300);
-        }
-        else if(loading === null){
-            if(error.current == "Firebase: Error (auth/email-already-in-use).")
+                alert("Account has been created, please verify your email");
+                navigate('/');
+             }, 300);                                                                               
+        } 
+        catch(err){
+            setLoading(false);     
+            if(err.message == "Firebase: Error (auth/email-already-in-use).")
                 setTimeout(() => {alert("Email is already registered")}, 300);                  //this will make the call to alert() happen AFTER the re-render  
             else if(err.message == "Firebase: Error (auth/invalid-email).")
                 setTimeout(() => {alert("Please enter a valid email")}, 300);                   //this will make the call to alert() happen AFTER the re-render  
-            else
-                setTimeout(() => {alert("Please enter a username")}, 300);       
+            else if (err.message == "name is empty")
+                setTimeout(() => {alert("Please enter a username")}, 300);  
         }
-    })
+
+    }
+
+
+
 
     return(
         <section className={styles.registerContainer}>
@@ -91,7 +83,7 @@ function BecomeAdmin({firebase}) {
             </Stack>
             <Stack spacing={2}>
                 <Box className={styles.loadingButton}>
-                    <Button disabled={disable} variant="contained" onClick={() => {setLoading(true)}} sx={{width: '100%'}}>Register</Button>         
+                    <Button disabled={disable} variant="contained" onClick={handleSubmit} sx={{width: '100%'}}>Register</Button>         
                     {loading && <CircularProgress size={24} sx={{position: 'absolute', left: 0, right: 0, top: '5px', margin: 'auto'}}/>}               
                 </Box>
                 <Button variant="contained" onClick={goBack}>Go Back</Button>                  
