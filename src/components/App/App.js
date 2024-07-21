@@ -5,7 +5,7 @@ import BecomeAdmin from './BecomeAdmin';
 import AdminAccount from './AdminAccount';
 import EnlistNewEmployee from './EnlistNewEmployee';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {db, auth, storage} from './firebase';
+import {db, auth, storage} from './Firebase';
 import './styles.css'
 
 const Firebase = createContext();
